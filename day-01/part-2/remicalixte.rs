@@ -1,5 +1,5 @@
 use std::env::args;
-use std::collections::HashMap;
+use std::collections::HashSet;
 
 fn main() {
     println!("{}", run(args().nth(1).expect("Please provide an input")))
@@ -8,16 +8,16 @@ fn main() {
 fn run(input: String) -> String {
     // Your code goes here
     let mut freq: i32 = 0;
-    let mut past_freqs = HashMap::new();
-    past_freqs.insert(freq, true);
+    let mut past_freqs = HashSet::new();
+    past_freqs.insert(freq);
     let changes: Vec<i32> = input.lines().map(|s| s.parse().unwrap()).collect();
     loop {
         for change in changes.iter() {
             freq += change;
-            if past_freqs.contains_key(&freq) {
+            if past_freqs.contains(&freq) {
                 return freq.to_string()
             }
-            past_freqs.insert(freq, true);            
+            past_freqs.insert(freq);            
 
         }
     }
