@@ -8,6 +8,7 @@ while true;
 do
     for delta in $input; do
         result=$(($result + $delta)) 
+
         if [[ -z "${seen["$result"]}" ]]; then
             seen["$result"]="ok"
         else

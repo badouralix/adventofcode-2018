@@ -11,4 +11,4 @@ class SubmissionBash(SubmissionWrapper):
         return 'sh'
 
     def exec(self, input):
-        return subprocess.check_output(f"./{self.executable} <<< '{input}'", shell=True).decode()
+        return subprocess.check_output(f"./{self.executable} <<< '{input}'", shell=True, executable='/bin/bash').decode()
