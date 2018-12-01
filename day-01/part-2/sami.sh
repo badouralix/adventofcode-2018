@@ -3,6 +3,7 @@
 result=0
 declare -A seen
 input=$(cat)
+
 while true;
 do
     for delta in $input; do
