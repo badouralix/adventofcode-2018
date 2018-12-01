@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
 	"strconv"
 	"strings"
@@ -36,5 +37,9 @@ func run(s string) string {
 }
 
 func main() {
-	fmt.Println(run(os.Args[1]))
+	input, err := ioutil.ReadAll(os.Stdin)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(run(string(input)))
 }
