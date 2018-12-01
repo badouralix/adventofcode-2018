@@ -1,0 +1,9 @@
+language: python
+
+python:
+  - "3.6"
+
+script: ./build.sh
+
+notifications:
+  email: false

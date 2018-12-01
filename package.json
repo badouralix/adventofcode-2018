@@ -1,0 +1,22 @@
+{
+  "name": "advent-of-code-2018",
+  "version": "0.1.0",
+  "description": "repository of proposed solutions to Advent Of Code 2018 edition",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/badouralix/advent-of-code-2018.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/badouralix/advent-of-code-2018/issues"
+  },
+  "homepage": "https://github.com/badouralix/advent-of-code-2018#readme",
+  "dependencies": {
+    "lodash": "^4.17.11"
+  }
+}
