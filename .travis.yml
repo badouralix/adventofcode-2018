@@ -1,7 +1,17 @@
-language: python
+language: generic
 
 python:
   - "3.6"
+
+# Cache Rust installation
+cache:
+  directories:
+    - /home/travis/.cargo/
+    - /home/travis/.rustup/
+
+# But don't cache the cargo registry
+before_cache:
+  - rm -rf /home/travis/.cargo/registry
 
 script: ./build.sh
 
