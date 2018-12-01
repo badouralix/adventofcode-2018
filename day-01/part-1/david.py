@@ -1,6 +1,6 @@
-from runners.python import Submission
+from runners.python import SubmissionPy
 
-class DavidSubmission(Submission):
+class DavidSubmission(SubmissionPy):
 
     def run(self, s):
         result = 0
