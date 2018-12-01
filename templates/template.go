@@ -1,14 +1,14 @@
 package main
 
 import (
-    "fmt"
-    "os"
+	"fmt"
+	"os"
 )
 
 func run(s string) string {
-    // Your code goes here
+	// Your code goes here
 }
 
 func main() {
-    fmt.Println(run(os.Args[1]))
+	fmt.Println(run(os.Args[1]))
 }
