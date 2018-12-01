@@ -69,8 +69,8 @@ optional arguments:
 If you don't use `create.py` tool you should follow this convention:
 
 ```bash
-day-[number]/part-[number]/[your_login].py          # your submission code
-day-[number]/part-[number]/inputs/[your_login].txt  # your input file
+day-[number]/part-[number]/[your_login].py    # your submission code
+day-[number]/inputs/[your_login].txt          # your input file
 ```
 
 Your submission code should inherit from the `SubmissionPy` class from `runners.python` module:
