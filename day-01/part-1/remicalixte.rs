@@ -6,7 +6,7 @@ fn main() {
 
 fn run(input: String) -> i32 {
     // Your code goes here
-    input.lines().map(|s| s.parse::<i32>().unwrap()).fold(0, |acc, x| acc + x)
+    input.lines().map(|s| s.parse::<i32>().unwrap()).sum()
 }
 
 #[cfg(test)]
