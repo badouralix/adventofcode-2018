@@ -131,7 +131,7 @@ def main():
     parser.add_argument('author', type=str, help='Name of author (github login)')
     parser.add_argument('day', type=int, help='Day of problem (between 1 and 25)')
     parser.add_argument('-p', '--part', type=int, help='Create submission for one day part only', choices=[1, 2])
-    parser.add_argument('-l', '--language', help='Use specified language', default="py", choices=["c", "cpp", "go", "js", "py", "rb", "rs"])
+    parser.add_argument('-l', '--language', help='Use specified language', default="py", choices=["c", "cpp", "go", "js", "py", "rb", "rs", "sh"])
     args = parser.parse_args()
 
     # Format author name
