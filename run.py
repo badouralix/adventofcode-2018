@@ -13,6 +13,7 @@ from importlib.machinery import SourceFileLoader
 from os import walk
 
 # submissions
+from runners.bash import SubmissionBash
 from runners.c import SubmissionC
 from runners.cpp import SubmissionCpp
 from runners.go import SubmissionGo
@@ -37,7 +38,7 @@ restricted_mode = False
 
 DAY_PATH_PATTERN = 'day-[0-9]*'
 CONTEST_PATH_PATTERN = 'part-[0-9]*'
-ALLOWED_EXT = ['.c', '.cpp', '.go', '.js', '.py', '.rb', '.rs']
+ALLOWED_EXT = ['.c', '.cpp', '.go', '.js', '.py', '.rb', '.rs', '.sh']
 SUPPORTED_LANGUAGES = [ext[1:] for ext in ALLOWED_EXT if is_tool(tool_for_lang(ext[1:]))]
 
 
@@ -115,6 +116,8 @@ def _load_submission(contest_path, submission, ext='.py'):
         return SubmissionRb(submission_path)
     elif ext == '.rs' and (forced_mode or is_tool('cargo')):
         return SubmissionRs(submission_path)
+    elif ext == '.sh':
+        return SubmissionBash(submission_path)
     return None
 
 

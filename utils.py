@@ -20,4 +20,6 @@ def tool_for_lang(lang):
         return 'ruby'
     elif lang == 'rs':
         return 'cargo'
+    elif lang == 'sh':
+        return 'bash'
     return lang
