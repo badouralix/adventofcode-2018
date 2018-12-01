@@ -73,12 +73,12 @@ day-[number]/part-[number]/[your_login].py          # your submission code
 day-[number]/part-[number]/inputs/[your_login].txt  # your input file
 ```
 
-Your submission code should inherit from the `Submission` class from `runners.python` module:
+Your submission code should inherit from the `SubmissionPy` class from `runners.python` module:
 
 ```python
-from runners.python import Submission
+from runners.python import SubmissionPy
 
-class MyAwesomeSubmission(Submission):
+class MyAwesomeSubmission(SubmissionPy):
 
     def run(self, s):
         # :param s: input in string format
