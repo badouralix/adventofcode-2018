@@ -3,13 +3,13 @@ Wrapper class handling the communication between the main python process and
 the funky language subprocesses.
 """
 
-from .python import Submission
+from .python import SubmissionPy
 
 
-class SubmissionWrapper(Submission):
+class SubmissionWrapper(SubmissionPy):
 
     def __init__(self):
-        Submission.__init__(self)
+        SubmissionPy.__init__(self)
 
     # Method that every class implementing SubmssionWrapper should override
     def exec(self, input):
