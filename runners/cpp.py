@@ -1,4 +1,4 @@
-import os
+import errno
 import subprocess
 import tempfile
 
@@ -31,7 +31,7 @@ class SubmissionCpp(SubmissionWrapper):
         try:
             return subprocess.check_output([self.executable, input]).decode()
         except OSError as e:
-            if e.errno == os.errno.ENOENT:
+            if e.errno == errno.ENOENT:
                 # executable not found
                 return CompilationError(e)
             else:

@@ -35,7 +35,7 @@ optional arguments:
                         Ignore submissions from specific authors
   -l LANGUAGES, --languages LANGUAGES
                         Run submissions written in specific languages, ex:
-                        js,py, supported: c cpp go js py rb rs
+                        js,py, supported: c cpp go js py rb rs sh
   -f, --force           Force running submissions even if tool is missing
   -r, --restricted      Restrict each author to their input only
   -s, --silent          Disable debug mode
@@ -43,12 +43,12 @@ optional arguments:
 
 ## Contribute
 
-For now we support `c`, `c++`, `javascript`, `go`, `python 3`, `ruby`, and `rust (stable)`.
+For now we support `c`, `c++`, `javascript`, `go`, `python 3`, `ruby`, `rust (stable)` and shell scripts.
 
 You can use `create.py` tool to create a new empty submission:
 
 ```text
-usage: create.py [-h] [-p {1,2}] [-l {c,cpp,go,js,py,rb,rs}] author day
+usage: create.py [-h] [-p {1,2}] [-l {c,cpp,go,js,py,rb,rs,sh}] author day
 
 Creates new empty submission
 
@@ -60,7 +60,7 @@ optional arguments:
   -h, --help            show this help message and exit
   -p {1,2}, --part {1,2}
                         Create submission for one day part only
-  -l {c,cpp,go,js,py,rb,rs}, --language {c,cpp,go,js,py,rb,rs}
+  -l {c,cpp,go,js,py,rb,rs,sh}, --language {c,cpp,go,js,py,rb,rs,sh}
                         Use specified language
 ```
 

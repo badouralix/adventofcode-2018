@@ -1,4 +1,4 @@
-import os
+import errno
 import subprocess
 
 from .wrapper import SubmissionWrapper
@@ -17,7 +17,7 @@ class SubmissionRb(SubmissionWrapper):
         try:
             return subprocess.check_output(["ruby", self.file, input]).decode()
         except OSError as e:
-            if e.errno == os.errno.ENOENT:
+            if e.errno == errno.ENOENT:
                 # executable not found
                 return None
             else:

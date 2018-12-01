@@ -1,4 +1,4 @@
-import os
+import errno
 import subprocess
 
 from .wrapper import SubmissionWrapper
@@ -21,7 +21,7 @@ console.log(result);
         try:
             return subprocess.check_output(["node", "-e", self.script, input]).decode()
         except OSError as e:
-            if e.errno == os.errno.ENOENT:
+            if e.errno == errno.ENOENT:
                 # executable not found
                 return None
             else:
