@@ -1,13 +1,13 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 result=0
 declare -A seen
-input=$(cat)
+input=$1
 
 while true;
 do
     for delta in $input; do
-        result=$(($result + $delta)) 
+        result=$(($result + $delta))
 
         if [[ -z "${seen["$result"]}" ]]; then
             seen["$result"]="ok"
