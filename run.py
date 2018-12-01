@@ -4,12 +4,12 @@
 import argparse
 import datetime
 import glob
-import imp
 import inspect
 import os.path
 import sys
 import traceback
 
+from importlib.machinery import SourceFileLoader
 from os import walk
 
 # submissions
@@ -98,7 +98,7 @@ def _load_submission(contest_path, submission, ext='.py'):
     if language_list is not None and ext[1:] not in language_list:
         return None
     if ext == '.py':
-        submission_module = imp.load_source('submission_%s_%s' % (contest, submission), submission_path)
+        submission_module = SourceFileLoader('submission_%s_%s' % (contest, submission), submission_path).load_module()
         classes = inspect.getmembers(submission_module, inspect.isclass)
         for _, cls_submission in classes:
             if issubclass(cls_submission, SubmissionPy) and cls_submission not in (SubmissionPy, SubmissionWrapper):
