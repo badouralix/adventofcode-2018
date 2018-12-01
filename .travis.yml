@@ -1,7 +1,7 @@
 language: generic
 
 python:
-  - "3.6"
+  - "3.7"
 
 # Cache Rust installation
 cache:

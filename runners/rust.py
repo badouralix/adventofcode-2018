@@ -1,3 +1,4 @@
+import errno
 import os
 import subprocess
 import tempfile
@@ -42,7 +43,7 @@ class SubmissionRs(SubmissionWrapper):
         try:
             return subprocess.check_output([self.executable, input]).decode()
         except OSError as e:
-            if e.errno == os.errno.ENOENT:
+            if e.errno == errno.ENOENT:
                 # executable not found
                 raise CompilationError(e)
             else:
