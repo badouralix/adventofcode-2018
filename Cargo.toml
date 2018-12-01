@@ -4,3 +4,7 @@ version = "0.1.0"
 authors = []
 
 [dependencies]
+
+[[bin]]
+name = "day-01-part-1-enizor"
+path = "./day-01/part-1/enizor.rs"
