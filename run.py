@@ -136,10 +136,10 @@ def load_submissions_for_contest(contest_path):
 
 
 def get_inputs_for_contest(contest_path):
-    if not os.path.exists(os.path.join(contest_path, 'inputs')):
+    if not os.path.exists(os.path.join(contest_path, '..', 'input')):
         return []
     inputs = []
-    for input_file in glob.glob(contest_path + '/inputs/*.txt'):
+    for input_file in glob.glob(contest_path + '/../input/*.txt'):
         with open(input_file, 'r') as content_file:
             input_name = os.path.os.path.basename(input_file).split('.')[0].lower()
             inputs.append((input_name, content_file.read().rstrip()))
