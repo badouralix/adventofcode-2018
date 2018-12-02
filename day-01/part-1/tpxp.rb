@@ -1,1 +1,5 @@
-puts File.readlines(ARGV[0]).map(&:to_i).reduce :+
+def run(s)
+  s.lines.map(&:to_i).reduce :+
+end
+
+puts run(ARGV[0])
