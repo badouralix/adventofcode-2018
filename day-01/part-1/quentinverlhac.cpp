@@ -6,7 +6,6 @@ using namespace std;
 
 string run(string s)
 {
-    // Your code goes here
     istringstream f(s);
     string line;
     int total = 0;
