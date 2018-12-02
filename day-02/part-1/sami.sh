@@ -6,11 +6,9 @@ count_occur() {
     local two=0
     local three=0
     local c
-    local prev
     declare -A counter
     for i in $(seq 1 ${#1}); do
         c="${1:$i-1:1}"
-        prev=
 
         # Increment the counter for this char
         counter[$c]=$((${counter[$c]:-0} + 1))
