@@ -20,14 +20,16 @@ vector<int> parse_input(string s)
 
 int part1_loop(int f, set<int> seen, vector<int> modifs)
 {
-    for (auto it = modifs.begin(); it != modifs.end(); ++it)
+    while (true)
     {
-        f += *it;
-        if (seen.count(f) == 1)
-            return f;
-        seen.insert(f);
+        for (auto it = modifs.begin(); it != modifs.end(); ++it)
+        {
+            f += *it;
+            if (seen.count(f) == 1)
+                return f;
+            seen.insert(f);
+        }
     }
-    return part1_loop(f, seen, modifs);
 }
 
 string run(string s)
