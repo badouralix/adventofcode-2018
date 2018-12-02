@@ -1,13 +1,10 @@
 def run(s)
   s.each_with_index do |l1, j|
     s.slice(0,j).each do |l2|
-      r1 = l1.chars.map &:ord
-      r2 = l2.chars.map &:ord
-      r = r1.each_with_index.map { |v, i| v - r2[i] }
-      # Exactly one distinct character
+      # We want Exactly one distinct character
       d = nil
-      r.each_with_index do |v,i|
-        if v != 0
+      l1.size.times do |i|
+        if l1[i] != l2[i]
           if d != nil
             d = nil
             break
