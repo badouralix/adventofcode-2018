@@ -6,14 +6,10 @@ fn main() {
 
 fn run(input: String) -> String {
     // Your code goes here
-    // println!("{}", input);
     let lines: Vec<&str> = input.lines().collect();
-    // println!("{}", lines.len());
     let mut res =   String::new();
     for i in 0..lines.len() {
-        for j in 0..(i+1) {
-            // println!("lines {}", lines[i]);
-            // println!("lines {}", lines[j]);
+        for j in 0..i {
             let mut diff = 0;
             let mut diff_index = 0;
             let mut iter = lines[i].bytes().zip(lines[j].bytes()).enumerate();
