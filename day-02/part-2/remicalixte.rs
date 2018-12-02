@@ -7,35 +7,29 @@ fn main() {
 fn run(input: String) -> String {
     // Your code goes here
     let lines: Vec<&str> = input.lines().collect();
-    let mut res =   String::new();
     for i in 0..lines.len() {
         for j in 0..i {
-            let mut diff = 0;
+
+            let (mut byte1, mut byte2) = (lines[i].as_bytes(), lines[j].as_bytes());
+            let mut diff = false;
             let mut diff_index = 0;
-            let mut iter = lines[i].bytes().zip(lines[j].bytes()).enumerate();
+
             loop {
-                match iter.next() {
-                    Some((k, (b1, b2))) => {
-                        if  b1 != b2 {
-                            diff += 1;
-                            diff_index = k;    
-                        }
-                        if diff > 1 {
-                            break;
-                        }
-                    },
-                    None => break
+                if  !diff && byte1[diff_index] != byte2[diff_index] {
+                    diff = byte1[(diff_index+1)..] == byte2[(diff_index+1)..];
+                    break;
                 }
+                diff_index += 1;
             }
-            if diff == 1 {
-                res = lines[i].to_string();
+
+            if diff {
+                let mut res = lines[i].to_string();
                 res.remove(diff_index);
+                return res;
             }
-
-
         }
     }
-    res
+    String::new()
 }
 
 #[cfg(test)]
