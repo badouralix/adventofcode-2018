@@ -1,11 +1,11 @@
 package main
 
 import (
-	"strconv"
-	"strings"
 	"fmt"
 	"io/ioutil"
 	"os"
+	"strconv"
+	"strings"
 )
 
 func run(s string) string {
@@ -22,10 +22,10 @@ func run(s string) string {
 		}
 
 		for _, count := range letterCount {
-			if count == 2 && ! foundTwo {
+			if count == 2 && !foundTwo {
 				nTwo++
 				foundTwo = true
-			} else if count == 3 && ! foundThree {
+			} else if count == 3 && !foundThree {
 				nThree++
 				foundThree = true
 			}

@@ -1,22 +1,26 @@
 package main
 
 import (
-	"strings"
 	"fmt"
 	"io/ioutil"
 	"os"
+	"strings"
 )
 
-func hamming(s, t []rune) int {
-	dist := 0
+func tooFar(s, t []rune) bool {
+	flag := false
 
 	for i, l := range s {
 		if t[i] != l {
-			dist++
+			if flag {
+				return true
+			} else {
+				flag = true
+			}
 		}
 	}
 
-	return dist
+	return false
 }
 
 func merge(s, t []rune) []rune {
@@ -36,7 +40,7 @@ func run(s string) string {
 
 	for i, s := range ids {
 		for _, t := range ids[i+1:] {
-			if hamming([]rune(s), []rune(t)) == 1 {
+			if !tooFar([]rune(s), []rune(t)) {
 				return string(merge([]rune(s), []rune(t)))
 			}
 		}
