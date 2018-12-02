@@ -23,9 +23,13 @@ class SubmissionGo(SubmissionWrapper):
 
     def __init__(self, file):
         SubmissionWrapper.__init__(self)
-        dep_output = subprocess.check_output(["go", "get", "-d", os.path.join(".", file)]).decode()
-        if dep_output:
-            raise DependenciesError(dep_output)
+        relpath = os.path.join(".", file)
+        abspath = os.path.realpath(file)
+        gopath = os.path.realpath(subprocess.check_output(["go", "env", "GOPATH"]).decode().strip())
+        if not abspath.startswith(gopath):
+            dep_output = subprocess.check_output(["go", "get", "-d", relpath]).decode()
+            if dep_output:
+                raise DependenciesError(dep_output)
         tmp = tempfile.NamedTemporaryFile(prefix="aoc")
         tmp.close()
         compile_output = subprocess.check_output(["go", "build", "-o", tmp.name, file]).decode()
