@@ -1,5 +1,4 @@
 use std::env::args;
-use std::collections::HashMap;
 
 fn main() {
     println!("{}", run(args().nth(1).expect("Please provide an input")))
@@ -8,25 +7,30 @@ fn main() {
 fn run(input: String) -> String {
     // Your code goes here
     let (mut two, mut three) = (0, 0);
+    let mut chars = [0u8; 26];
     for line in input.lines() {
-        let mut chars = HashMap::new();
+        for i in 0..26 {
+            chars[i] = 0;
+        }
+        let (mut found_two, mut found_three) = (0, 0);
         for c in line.bytes() {
-            *chars.entry(c).or_insert(0) += 1;
-        }
-        let (mut found_two, mut found_three) = (false, false);
-        for v in chars.values() {
-            if *v == 2 {
-                found_two = true;
+            let previous_count = chars[(c - 97) as usize];
+            match previous_count {
+                1 => found_two += 1,
+                2 => {
+                    found_two -= 1;
+                    found_three += 1;
+                },
+                3 => found_three -= 1,
+                _ => (),
             }
-            if *v == 3 {
-                found_three = true;
-            }
+            chars[(c - 97) as usize] += 1;
         }
-        if found_three {
-            three += 1;
-        }
-        if found_two {
+        if found_two != 0 {
             two += 1;
+        }
+        if found_three != 0 {
+            three += 1;
         }
     }
     (two*three).to_string()
