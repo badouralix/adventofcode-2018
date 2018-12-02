@@ -14,9 +14,7 @@ int run(char* s)
     int letter_count[ALPHABET_SIZE] = {},
         empty_array[ALPHABET_SIZE] = {};
 
-    // for (char* c = s; *c != '\0'; c++) {
     do {
-        // printf("%c", *c);
         switch (*c) {
 
         case '\n':
