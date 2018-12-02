@@ -22,7 +22,7 @@ const diff = (stringA, stringB) => {
 
 /**
  * @param {string} s puzzle input in string format
- * @returns solution flag
+ * @returns {string} solution flag
  */
 const run = s => {
   const lines = s.split("\n");

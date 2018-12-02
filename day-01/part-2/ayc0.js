@@ -1,6 +1,6 @@
 /**
- * @param {{string}} s puzzle input in string format
- * @returns solution flag
+ * @param {string} s puzzle input in string format
+ * @returns {string} solution flag
  */
 const run = s => {
   const list = s.split("\n").map(Number);
