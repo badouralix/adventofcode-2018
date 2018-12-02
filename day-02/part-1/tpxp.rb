@@ -3,7 +3,6 @@ def run(s)
   triples = 0
 
   s.lines do |l|
-    prev = nil
     d = 0
     t = 0
     l.chars do |c|
