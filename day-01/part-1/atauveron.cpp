@@ -1,29 +1,26 @@
-#include <fstream>
 #include <iostream>
+#include <sstream>
 #include <string>
 
-int process(std::string filename) {
-  int frq (0);
+int process(std::string input_str) {
+  int frq(0);
   int line;
-  std::ifstream input;
-  input.open(filename);
-  if (input.is_open()){
-    while (input >> line){
-      frq += line;
-    }
+  std::stringstream input(input_str, std::ios_base::in);
+  while (input >> line) {
+    frq += line;
   }
   return frq;
 }
 
 int main(int argc, char **argv) {
   /*
-   * Usage: <executable> <input file>
+   * Usage: <executable> <input>
    */
-  if (argc<2){
+  if (argc < 2) {
     std::cout << "No file was provided." << std::endl;
     return 0;
   }
-  std::string filename (argv[1]);
-  std::cout << process(filename) << std::endl;
+  std::string input(argv[1]);
+  std::cout << process(input) << std::endl;
   return 0;
 }
