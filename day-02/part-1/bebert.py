@@ -9,8 +9,8 @@ class BebertSubmission(SubmissionPy):
         threes = 0
         for line in s.splitlines():
             count = Counter(line.strip())
-            if any(v == 2 for v in count.values()):
+            if 2 in count.values():
                 twos += 1
-            if any(v == 3 for v in count.values()):
+            if 3 in count.values():
                 threes += 1
         return twos * threes
