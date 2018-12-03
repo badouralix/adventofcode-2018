@@ -84,7 +84,7 @@ def _find_submissions_for_contest(contest_path):
     for _, _, files in walk(contest_path):
         for filename in files:
             submission, ext = os.path.splitext(filename)
-            if ext in ALLOWED_EXT:
+            if ext in ALLOWED_EXT and filename[-8:] != "_test.go":
                 submission_files.append((submission, ext))
     return submission_files
 
