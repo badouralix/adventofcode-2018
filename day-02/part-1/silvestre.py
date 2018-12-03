@@ -12,6 +12,6 @@ class SilvestreSubmission(SubmissionPy):
             c = Counter(row)
             if 2 in c.values():
                 twice += 1
-            elif 3 in c.values():
+            if 3 in c.values():
                 three_times += 1
         return twice * three_times
