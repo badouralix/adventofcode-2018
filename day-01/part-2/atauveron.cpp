@@ -42,6 +42,6 @@ int main(int argc, char **argv) {
     return 0;
   }
   std::string filename (argv[1]);
-  std::cout << "The first repeated frequency is: " << process(filename) << std::endl;
+  std::cout << process(filename) << std::endl;
   return 0;
 }
