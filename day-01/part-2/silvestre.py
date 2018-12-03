@@ -11,7 +11,7 @@ class SilvestreSubmission(SubmissionPy):
         curr = 0
         i = 0
         while True:
-            if curr in reached or i > 150000:
+            if curr in reached or i > 150000: # Security
                 return curr
             else:
                 reached.add(curr)
