@@ -48,6 +48,7 @@ int part_2(const std::vector<Rectangle>& claims) {
         if (isValidClaim)
             return c.id;
     }
+    return 0;
 }
 
 int main(int argc, char *argv[]) {
