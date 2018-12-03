@@ -23,7 +23,7 @@ int main(int argc, char **argv) {
     std::cout << "No file was provided." << std::endl;
     return 0;
   }
-  std::string filename (argv(1));
+  std::string filename (argv[1]);
   std::cout << "The frequency is: " << process(filename) << std::endl;
   return 0;
 }
