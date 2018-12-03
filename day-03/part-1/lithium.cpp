@@ -5,8 +5,7 @@
 
 using namespace std;
 
-string
-run(string s)
+string run(string s)
 {
     stringstream ss(s);
     string line;
