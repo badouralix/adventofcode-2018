@@ -25,5 +25,5 @@ class DegemerSubmission(SubmissionPy):
             left, top = map(lambda x: int(x.strip()), tops.split(','))
             width, height = map(lambda x: int(x.strip()), sizes.split('x'))
             if np.all(claim[left:left + width, top:top + height] == 1):
-                return id
+                return id.strip()
 
