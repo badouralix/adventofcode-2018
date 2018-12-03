@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"time"
 )
 
 func run(s string) string {
@@ -15,5 +16,8 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(run(string(input)))
+	start := time.Now()
+	res := run(string(input))
+	fmt.Printf("_duration:%f\n", time.Now().Sub(start).Seconds()*1000)
+	fmt.Println(res)
 }

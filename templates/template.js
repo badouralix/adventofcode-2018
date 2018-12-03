@@ -6,4 +6,8 @@ const run = s => {
   // Your code goes here
 };
 
-console.log(run(process.argv[2]));
+let start = Date.now();
+let answer = run(process.argv[2]);
+
+console.log("_duration:" + (Date.now() - start).toString());
+console.log(answer);
