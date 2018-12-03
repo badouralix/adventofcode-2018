@@ -11,11 +11,11 @@ class DavidSubmission(SubmissionPy):
         return int(claim_id[1:]), x0, y0, l1, l2
 
     def run(self, s):
-        d = defaultdict(int)
+        grid = [[0 for _ in range(1000)] for _ in range(1000)]
         for l in s.split("\n"):
             _, x0, y0, l1, l2 = self.parse_line(l)
             for i in range(l1):
                 for j in range(l2):
-                    d[(x0+i,y0+j)] += 1
+                    grid[x0+i][y0+j] += 1
 
-        return sum(1 for v in d.values() if v >= 2)
+        return sum(1 for i in range(1000) for j in range(1000) if grid[i][j] >= 2)

@@ -11,14 +11,14 @@ class DavidSubmission(SubmissionPy):
         return int(claim_id[1:]), x0, y0, l1, l2
 
     def run(self, s):
-        d = defaultdict(int)
+        grid = [[0 for _ in range(1000)] for _ in range(1000)]
         for l in s.split("\n"):
             claim_id, x0, y0, l1, l2 = self.parse_line(l)
             for i in range(l1):
                 for j in range(l2):
-                    d[(x0+i,y0+j)] += 1
+                    grid[x0+i][y0+j] += 1
 
         for l in s.split("\n"):
             claim_id, x0, y0, l1, l2 = self.parse_line(l)
-            if all(d[(x0+i,y0+j)] == 1 for i in range(l1) for j in range(l2)):
+            if all(grid[x0+i][y0+j] == 1 for i in range(l1) for j in range(l2)):
                 return claim_id
