@@ -1,6 +1,5 @@
 from runners.python import SubmissionPy
 import numpy as np
-import ipdb as pdb
 
 
 class DegemerSubmission(SubmissionPy):
@@ -17,7 +16,6 @@ class DegemerSubmission(SubmissionPy):
             tops, sizes = t.split(':')
             left, top = map(lambda x: int(x.strip()), tops.split(','))
             width, height = map(lambda x: int(x.strip()), sizes.split('x'))
-            #pdb.set_trace()
             claim[left:left + width, top:top + height] += 1
 
         claim[claim <= 1] = 0
