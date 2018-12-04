@@ -27,7 +27,6 @@ class DavidSubmission(SubmissionPy):
                 m1 = int(log[15:17])
                 h0, m0 = time_falls_asleep[current_id]
                 delta_min = h1*60 + m1 - (h0*60 + m0)
-                print(h1,m1,h0,m0)
 
                 total_sleep_time[current_id] += delta_min
                 for i in range(delta_min):
