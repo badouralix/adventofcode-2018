@@ -1,8 +1,5 @@
 language: generic
 
-python:
-  - "3.7"
-
 # Cache Rust installation
 cache:
   directories:
