@@ -1,5 +1,3 @@
-require 'time'
-
 def run(s)
   s.sort!
   guards = Hash.new { Array.new(60) {0} }
