@@ -13,7 +13,7 @@ class Submission:
         guard_to_index = {}
         guard_id = -1
         asleep_since = None
-        lines = s.split("\n")
+        lines = s.split('\n')
         lines.sort()
         for line in lines:
             minute = int(line[15:17])
