@@ -38,8 +38,8 @@ int part_2(const std::vector<Rectangle>& claims) {
     // Find non-conflicting claim
     for (auto& c : claims) {
         bool isValidClaim = true;
-        for (int x = c.x; x < c.x + c.w; x++) {
-            for (int y = c.y; y < c.y + c.h; y++) {
+        for (int x = c.x; isValidClaim && x < c.x + c.w; x++) {
+            for (int y = c.y; isValidClaim && y < c.y + c.h; y++) {
                 if (grid[x][y] > 1)
                     isValidClaim = false;
             }
