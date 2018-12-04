@@ -20,8 +20,8 @@ func run(s string) int {
 	sleep := make(map[int][]int)
 	sleeptotal := make(map[int]int)
 
-	input := sort.StringSlice(strings.Split(s, "\n"))
-	sort.Sort(input)
+	input := strings.Split(s, "\n")
+	sort.Strings(input)
 
 	for _, line := range input {
 		switch {
