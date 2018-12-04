@@ -10,7 +10,7 @@ then
 fi
 export PATH=$PATH:~/.cargo/bin
 
-export PYENV_VERSION=3.6
+export PYENV_VERSION=3.7
 
 npm install
 pip install --user -r requirements.txt
