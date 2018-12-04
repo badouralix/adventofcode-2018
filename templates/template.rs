@@ -7,8 +7,8 @@ fn main() {
     let elapsed = now.elapsed();
     println!(
         "_duration:{}.{}",
-        elapsed.as_secs(),
-        elapsed.subsec_millis()
+        elapsed.as_secs() * 1000 + u64::from(elapsed.subsec_millis()),
+        elapsed.subsec_micros() - (elapsed.subsec_millis() * 1000)
     );
     println!("{}", output);
 }
