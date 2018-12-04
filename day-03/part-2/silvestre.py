@@ -21,5 +21,5 @@ class SilvestreSubmission(SubmissionPy):
             array[x:x+width, y:y+height] += 1
 
         for (id_rec, x, y, width, height) in rectangles:
-            if np.all(array[x:x+width, y:y+height] == 1):
+            if np.count_nonzero(array[x:x+width, y:y+height] != 1) == 0:
                 return id_rec
