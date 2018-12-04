@@ -1,7 +1,16 @@
 use std::env::args;
+use std::time::Instant;
 
 fn main() {
-    println!("{}", run(args().nth(1).expect("Please provide an input")))
+    let now = Instant::now();
+    let output: String = run(args().nth(1).expect("Please provide an input"));
+    let elapsed = now.elapsed();
+    println!(
+        "_duration:{}.{}",
+        elapsed.as_secs(),
+        elapsed.subsec_millis()
+    );
+    println!("{}", output);
 }
 
 fn run(input: String) -> String {
