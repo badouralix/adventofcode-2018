@@ -1,7 +1,7 @@
-from runners.python import SubmissionPy
+import sys
 
 
-class JonSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
 
@@ -41,3 +41,6 @@ class JonSubmission(SubmissionPy):
                 return l.split('@')[0].strip()[1:]
 
         return 'nope'
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

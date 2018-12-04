@@ -1,4 +1,4 @@
-from runners.python import SubmissionPy
+import sys
 
 
 class Claim:
@@ -22,7 +22,7 @@ class Grid:
         self.overlapping_squares.update(newly_overlapping)
         self.occupied_squares.update(claim.squares)
 
-class LudogeSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         # :param s: input in string format
@@ -35,3 +35,6 @@ class LudogeSubmission(SubmissionPy):
         return len(grid.overlapping_squares)
 
 
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

@@ -1,7 +1,7 @@
-from runners.python import SubmissionPy
+import sys
 from collections import Counter
 
-class WenceslasSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         # :param s: input in string format
@@ -17,5 +17,8 @@ class WenceslasSubmission(SubmissionPy):
                 ids_twice += 1
             if 3 in counter.values():
                 ids_thrice += 1
-    
+
         return ids_twice*ids_thrice
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

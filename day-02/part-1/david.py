@@ -1,8 +1,7 @@
-from runners.python import SubmissionPy
-
+import sys
 from collections import Counter
 
-class DavidSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         words = s.split("\n")
@@ -15,3 +14,6 @@ class DavidSubmission(SubmissionPy):
                 appears3 += 1
 
         return appears2 * appears3
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

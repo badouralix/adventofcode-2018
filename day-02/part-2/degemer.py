@@ -1,7 +1,7 @@
-from runners.python import SubmissionPy
+import sys
 
 
-class DegemerSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         # :param s: input in string format
@@ -21,3 +21,6 @@ class DegemerSubmission(SubmissionPy):
                         break
                 if unmatch == 1:
                     return ''.join(chars)
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

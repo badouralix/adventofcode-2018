@@ -1,8 +1,8 @@
-from runners.python import SubmissionPy
+import sys
 import numpy as np
 
 
-class DegemerSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         # :param s: input in string format
@@ -27,3 +27,6 @@ class DegemerSubmission(SubmissionPy):
             if np.all(claim[left:left + width, top:top + height] == 1):
                 return id.strip()
 
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

@@ -1,8 +1,8 @@
-from runners.python import SubmissionPy
+import sys
 import numpy as np
 
 
-class DegemerSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         # :param s: input in string format
@@ -21,3 +21,6 @@ class DegemerSubmission(SubmissionPy):
         claim[claim <= 1] = 0
         claim[claim >= 2] = 1
         return np.sum(claim)
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

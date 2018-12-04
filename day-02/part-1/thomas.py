@@ -1,8 +1,8 @@
-from runners.python import SubmissionPy
+import sys
 from collections import Counter
 
 
-class ThomasSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         two = 0
@@ -14,3 +14,6 @@ class ThomasSubmission(SubmissionPy):
             three += 3 in letters.values()
 
         return two * three
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

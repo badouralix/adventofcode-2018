@@ -1,7 +1,7 @@
-from runners.python import SubmissionPy
+import sys
 
 
-class JonSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
 
@@ -17,3 +17,6 @@ def hamming(a, b):
 
 def comstr(a, b):
     return "".join(a[k] for k in range(len(a)) if a[k] == b[k])
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

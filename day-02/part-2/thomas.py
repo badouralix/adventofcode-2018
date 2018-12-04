@@ -1,7 +1,7 @@
-from runners.python import SubmissionPy
+import sys
 
 
-class ThomasSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         l = s.split('\n')
@@ -22,3 +22,6 @@ class ThomasSubmission(SubmissionPy):
         if diffletter is not None:
             return ''.join([x[i] for i in range(len(x)) if i != diffletter])
         return False
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

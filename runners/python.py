@@ -1,21 +1,28 @@
 from inspect import getframeinfo, stack
+import errno
+import subprocess
+
+from .wrapper import SubmissionWrapper
 
 
-class SubmissionPy:
-
-    def __init__(self):
-        self.debug_stack = []
+class SubmissionPy(SubmissionWrapper):
+    def __init__(self, file):
+        SubmissionWrapper.__init__(self)
+        self.file = file
 
     def language(self):
-        return 'py'
+        return "py"
 
-    # Method that every class implementing Submssion should override
-    def run(self, input):
-        pass
+    def exec(self, input):
+        try:
+            return subprocess.check_output(["python", self.file, input]).decode()
+        except OSError as e:
+            if e.errno == errno.ENOENT:
+                # executable not found
+                return None
+            else:
+                # subprocess exited with another error
+                return None
 
-    def debug(self, message):
-        caller = getframeinfo(stack()[1][0])
-        self.debug_stack.append("%s:%d - %s" % (caller.filename, caller.lineno, message))
-
-    def get_debug_stack(self):
-        return self.debug_stack
+    def __call__(self):
+        return SubmissionPy(self.file)

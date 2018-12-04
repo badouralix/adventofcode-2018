@@ -1,7 +1,7 @@
-from runners.python import SubmissionPy
+import sys
 
 
-class BebertSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         data = []
@@ -26,3 +26,6 @@ class BebertSubmission(SubmissionPy):
                     matrix[i][j] += 1
 
         return sum(1 if x >= 2 else 0 for line in matrix for x in line)
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

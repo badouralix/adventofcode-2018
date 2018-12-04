@@ -1,7 +1,7 @@
-from runners.python import SubmissionPy
+import sys
 
 
-class DegemerSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         # :param s: input in string format
@@ -11,3 +11,6 @@ class DegemerSubmission(SubmissionPy):
         for change in s.splitlines():
             res += eval(change)
         return res
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

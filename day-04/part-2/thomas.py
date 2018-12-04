@@ -1,4 +1,4 @@
-from runners.python import SubmissionPy
+import sys
 import numpy as np
 from collections import defaultdict
 from functools import partial
@@ -7,7 +7,7 @@ import operator
 import datetime
 
 
-class ThomsSubmission(SubmissionPy):
+class Submission:
     def run(self, s):
         guards = []
         guard_to_index = {}
@@ -39,3 +39,6 @@ class ThomsSubmission(SubmissionPy):
             key for key, value in guard_to_index.items() if value == maxi_guard_index
         ][0]
         return maxi_guard * maxi_minute
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

@@ -1,7 +1,7 @@
-from runners.python import SubmissionPy
+import sys
 
 
-class WenceslasSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         # :param s: input in string format
@@ -21,3 +21,6 @@ class WenceslasSubmission(SubmissionPy):
                 else:
                     if len(diff_indexes) == 1:
                         return sn1[:diff_indexes[0]] + sn1[diff_indexes[0]+1:]
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

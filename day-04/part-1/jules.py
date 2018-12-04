@@ -1,8 +1,8 @@
-from runners.python import SubmissionPy
+import sys
 from collections import defaultdict
 import operator
 
-class JulesSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         # :param s: input in string format
@@ -26,3 +26,6 @@ class JulesSubmission(SubmissionPy):
                 sleep = int(line.split(':')[-1][:2])
         chosen_id = max(guards.items(), key=operator.itemgetter(1))[0]
         return chosen_id*(max(max_sleep[chosen_id].items(), key=operator.itemgetter(1))[0])
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

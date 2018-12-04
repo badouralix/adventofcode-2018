@@ -1,8 +1,7 @@
-from runners.python import SubmissionPy
-
+import sys
 from collections import defaultdict
 
-class DavidSubmission(SubmissionPy):
+class Submission():
 
     def parse_line(self, line):
         claim_id, _, origin, size = line.split(" ")
@@ -23,3 +22,6 @@ class DavidSubmission(SubmissionPy):
 
 
         return result
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

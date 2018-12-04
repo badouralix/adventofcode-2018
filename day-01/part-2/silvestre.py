@@ -1,7 +1,7 @@
-from runners.python import SubmissionPy
+import sys
 import numpy as np
 
-class SilvestreSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         # :param s: input in string format
@@ -17,3 +17,6 @@ class SilvestreSubmission(SubmissionPy):
                     reached.add(curr)
                     curr += el
         print('Error: Never reached the same frequency twice')
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

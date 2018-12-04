@@ -1,7 +1,7 @@
-from runners.python import SubmissionPy
+import sys
 
 
-class LudogeSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         # :param s: input in string format
@@ -21,3 +21,6 @@ class LudogeSubmission(SubmissionPy):
         while True:
             for line in s.splitlines():
                 yield int(line)
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

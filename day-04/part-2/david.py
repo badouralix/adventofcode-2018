@@ -1,8 +1,7 @@
-from runners.python import SubmissionPy
-
+import sys
 import re
 from collections import defaultdict
-class DavidSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         # :param s: input in string format
@@ -46,3 +45,6 @@ class DavidSubmission(SubmissionPy):
                 max_minute = minute
 
         return max_guard_id * max_minute
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

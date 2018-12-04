@@ -1,7 +1,7 @@
-from runners.python import SubmissionPy
+import sys
 from collections import Counter
 
-class JonSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
 
@@ -16,3 +16,6 @@ class JonSubmission(SubmissionPy):
                 c3 += 1
 
         return c2 * c3
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

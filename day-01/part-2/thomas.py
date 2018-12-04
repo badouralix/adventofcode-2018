@@ -1,7 +1,7 @@
-from runners.python import SubmissionPy
+import sys
 
 
-class ThomasSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         freqs = set([0])
@@ -13,3 +13,6 @@ class ThomasSubmission(SubmissionPy):
                 if freq in freqs:
                     return freq
                 freqs.add(freq)
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

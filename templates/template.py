@@ -1,10 +1,12 @@
-from runners.python import SubmissionPy
+import sys
 
 
-class {class_name}(SubmissionPy):
+def run(s):
+    # :param s: input in string format
+    # :return: solution flag
+    # Your code goes here
+    pass
 
-    def run(self, s):
-        # :param s: input in string format
-        # :return: solution flag
-        # Your code goes here
-        pass
+
+if __name__ == "__main__":
+    print(run(sys.argv[1]))

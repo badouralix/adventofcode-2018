@@ -1,7 +1,7 @@
-from runners.python import SubmissionPy
+import sys
 import collections
 
-class JonSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         l = [int(x) for x in s.split("\n")]
@@ -12,3 +12,6 @@ class JonSubmission(SubmissionPy):
             if s in d:
                 return s
             d.add(s)
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

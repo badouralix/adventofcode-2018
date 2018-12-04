@@ -1,8 +1,8 @@
-from runners.python import SubmissionPy
+import sys
 
 from collections import defaultdict
 
-class DavidSubmission(SubmissionPy):
+class Submission():
 
     def parse_line(self, line):
         claim_id, _, origin, size = line.split(" ")
@@ -22,3 +22,6 @@ class DavidSubmission(SubmissionPy):
             claim_id, x0, y0, l1, l2 = self.parse_line(l)
             if all(grid[x0+i][y0+j] == 1 for i in range(l1) for j in range(l2)):
                 return claim_id
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

@@ -1,7 +1,7 @@
-from runners.python import SubmissionPy
+import sys
 
 
-class JonSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         claimed = dict()
@@ -22,3 +22,6 @@ class JonSubmission(SubmissionPy):
 
         return sum(1 for v in claimed.values() if v > 1)
 
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

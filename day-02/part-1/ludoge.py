@@ -1,7 +1,7 @@
-from runners.python import SubmissionPy
+import sys
 from collections import Counter
 
-class LudogeSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         # :param s: input in string format
@@ -16,3 +16,6 @@ class LudogeSubmission(SubmissionPy):
             y1 = 1 if [c for c in counter if counter[c] == 2] else 0
             y2 = 1 if [c for c in counter if counter[c] == 3] else 0
             yield (y1, y2)
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

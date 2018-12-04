@@ -1,7 +1,7 @@
-from runners.python import SubmissionPy
+import sys
 
 
-class DegemerSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         # :param s: input in string format
@@ -40,3 +40,6 @@ class DegemerSubmission(SubmissionPy):
                 max_time = guard_minutes[max_id][t]
                 minu = t
         return minu * max_id
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

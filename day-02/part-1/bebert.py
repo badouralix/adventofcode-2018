@@ -1,8 +1,8 @@
-from runners.python import SubmissionPy
+import sys
 from collections import Counter
 
 
-class BebertSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s: str):
         twos = 0
@@ -14,3 +14,6 @@ class BebertSubmission(SubmissionPy):
             if 3 in count.values():
                 threes += 1
         return twos * threes
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

@@ -1,8 +1,8 @@
+import sys
 import re
 import numpy as np
-from runners.python import SubmissionPy
 
-class SilvestreSubmission(SubmissionPy):
+class Submission():
 
     def parse(self, s):
         # "#1400 @ 873,28: 11x27"
@@ -23,3 +23,6 @@ class SilvestreSubmission(SubmissionPy):
         for (id_rec, x, y, width, height) in rectangles:
             if np.count_nonzero(array[x:x+width, y:y+height] != 1) == 0:
                 return id_rec
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

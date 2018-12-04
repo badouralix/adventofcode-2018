@@ -1,9 +1,9 @@
-from runners.python import SubmissionPy
+import sys
 from collections import defaultdict
 import operator
 
-class JulesSubmission(SubmissionPy):
 
+class Submission:
     def run(self, s):
         # :param s: input in string format
         # :return: solution flag
@@ -31,3 +31,6 @@ class JulesSubmission(SubmissionPy):
                 chosen_id = cur_id
                 total_max = new_max
         return chosen_id*max(max_sleep[chosen_id].items(), key=operator.itemgetter(1))[0]
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

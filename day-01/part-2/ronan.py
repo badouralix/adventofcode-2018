@@ -1,6 +1,6 @@
+import sys
 
-from runners.python import SubmissionPy
-class RonanSubmission(SubmissionPy):
+class Submission():
     @staticmethod
     def run(input):
         sum = 0
@@ -12,3 +12,6 @@ class RonanSubmission(SubmissionPy):
                 if sum in seen:
                     return sum
                 seen.add(sum)
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

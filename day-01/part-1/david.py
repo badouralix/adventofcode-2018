@@ -1,6 +1,6 @@
-from runners.python import SubmissionPy
+import sys
 
-class DavidSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         result = 0
@@ -8,3 +8,6 @@ class DavidSubmission(SubmissionPy):
             n = int(line[1:])
             result += (n if line[0] == "+" else -n)
         return result
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

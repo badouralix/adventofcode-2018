@@ -1,7 +1,7 @@
+import sys
 from collections import Counter
-from runners.python import SubmissionPy
 
-class SilvestreSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         # :param s: input in string format
@@ -15,3 +15,6 @@ class SilvestreSubmission(SubmissionPy):
             if 3 in c.values():
                 three_times += 1
         return twice * three_times
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

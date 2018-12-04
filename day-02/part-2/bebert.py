@@ -1,7 +1,7 @@
-from runners.python import SubmissionPy
+import sys
 
 
-class BebertSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s: str):
         lines = [l.strip() for l in s.splitlines()]
@@ -15,3 +15,6 @@ class BebertSubmission(SubmissionPy):
                             break
                 if diff == 1:
                     return "".join(x for x, y in zip(line1.strip(), line2.strip()) if x == y)
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

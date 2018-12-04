@@ -1,7 +1,7 @@
-from runners.python import SubmissionPy
+import sys
 
 
-class BebertSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         a = 0
@@ -16,3 +16,6 @@ class BebertSubmission(SubmissionPy):
                     return a
                 seen.add(a)
         print("Error: bebert/day1/part2 never found a solution")
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

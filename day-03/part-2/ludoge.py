@@ -1,4 +1,4 @@
-from runners.python import SubmissionPy
+import sys
 
 
 class Claim:
@@ -35,7 +35,7 @@ class Grid:
                 if free_claim.overlaps(claim):
                     self.free_claims.remove(free_claim)
 
-class LudogeSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         # :param s: input in string format
@@ -46,3 +46,6 @@ class LudogeSubmission(SubmissionPy):
             grid.add_claim(Claim(line))
 
         return list(grid.free_claims)[0].id
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

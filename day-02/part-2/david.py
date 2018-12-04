@@ -1,6 +1,6 @@
-from runners.python import SubmissionPy
+import sys
 
-class DavidSubmission(SubmissionPy):
+class Submission():
     def bucket_key(self, w, i):
         return w[:i] + w[i+1:]
 
@@ -15,3 +15,6 @@ class DavidSubmission(SubmissionPy):
                     return k
                 buckets[i].add(k)
 
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

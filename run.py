@@ -99,11 +99,7 @@ def _load_submission(contest_path, submission, ext='.py'):
     if language_list is not None and ext[1:] not in language_list:
         return None
     if ext == '.py':
-        submission_module = SourceFileLoader('submission_%s_%s' % (contest, submission), submission_path).load_module()
-        classes = inspect.getmembers(submission_module, inspect.isclass)
-        for _, cls_submission in classes:
-            if issubclass(cls_submission, SubmissionPy) and cls_submission not in (SubmissionPy, SubmissionWrapper):
-                return cls_submission()
+        return SubmissionPy(submission_path)
     elif ext == '.c' and (forced_mode or is_tool('gcc')):
         return SubmissionC(submission_path)
     elif ext == '.cpp' and (forced_mode or is_tool('g++')):

@@ -1,7 +1,6 @@
-from runners.python import SubmissionPy
+import sys
 
-
-class DegemerSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         # :param s: input in string format
@@ -23,3 +22,6 @@ class DegemerSubmission(SubmissionPy):
                 if two and three:
                     break
         return twos * threes
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

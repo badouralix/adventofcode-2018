@@ -1,7 +1,7 @@
-from runners.python import SubmissionPy
+import sys
 
 
-class BebertSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         a = 0
@@ -10,3 +10,6 @@ class BebertSubmission(SubmissionPy):
             a += x
 
         return a
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

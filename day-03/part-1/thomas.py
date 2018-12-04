@@ -1,8 +1,8 @@
-from runners.python import SubmissionPy
+import sys
 import numpy as np
 
 
-class ThomasSubmission(SubmissionPy):
+class Submission():
     @staticmethod
     def get_claim(line):
         _, _, border_dist, dim = line.split()
@@ -16,3 +16,6 @@ class ThomasSubmission(SubmissionPy):
             imin, imax, jmin, jmax = self.get_claim(line)
             fabric[imin:imax, jmin:jmax] += 1
         return np.count_nonzero(fabric > 1)
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))

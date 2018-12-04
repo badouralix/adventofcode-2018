@@ -1,8 +1,7 @@
-from runners.python import SubmissionPy
-
+import sys
 import re
 from collections import defaultdict
-class DavidSubmission(SubmissionPy):
+class Submission():
 
     def run(self, s):
         # :param s: input in string format
@@ -35,3 +34,6 @@ class DavidSubmission(SubmissionPy):
         c_max, _ = max(total_sleep_time.items(), key=lambda x:x[1])
         m_max,_ = max(minutes_asleep[c_max].items(), key=lambda x:x[1] )
         return c_max * m_max
+
+if __name__ == "__main__":
+    print(Submission().run(sys.argv[1]))
