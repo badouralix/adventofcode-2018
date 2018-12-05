@@ -42,7 +42,7 @@ class Input(object):
         self.content = content
 
     def path(self):
-        return os.path.join(self.problem.path(), "input", self.author + ".txt")
+        return os.path.join(self.problem.day_path(), "input", self.author + ".txt")
 
 
 class Result(object):
