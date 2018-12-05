@@ -6,10 +6,10 @@ from runners.python import SubmissionPy
 class SilvestreSubmission(SubmissionPy):
 
     def collapse(self, s):
-        # condition empruntée à Thomas, voir part 1 pour ma condition
         ret = deque()
         for el1 in s:
-            if ret and abs(ord(el1) - ord(ret[-1])) == 32: 
+            el2 = ret[-1] if ret else ""
+            if el1 != el2 and el1.lower() == el2.lower():
                 ret.pop()
             else:
                 ret.append(el1)
