@@ -1,25 +1,40 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+const int ZERO = (int)'0';
+
 int run(char *s) {
   int res = 0;
   int buffer = 0;
   char op = '\0';
 
-  for (int i = 0; s[i] != EOF && s[i] != '\0'; ++i) {
-    if (s[i] == '+' || s[i] == '-') {
-      op = s[i];
-    } else if (s[i] >= '0' && s[i] <= '9') {
-      buffer = buffer * 10 + s[i] - '0';
-    } else {
-      if (op == '+') {
-        res += buffer;
-      } else {
-        res -= buffer;
-      }
+  for (int i = *s; i != EOF && i != '\0'; i = *(s++)) {
+    switch (i) {
+    case '+':
+    case '-':
+      op = i;
+      break;
+
+    case '0':
+    case '1':
+    case '2':
+    case '3':
+    case '4':
+    case '5':
+    case '6':
+    case '7':
+    case '8':
+    case '9':
+      buffer = buffer * 10 + i - ZERO;
+      break;
+
+    default:
+      res = op == '+' ? res + buffer : res - buffer;
       buffer = 0;
     }
   }
+
+  res = op == '+' ? res + buffer : res - buffer;
 
   return res;
 }
