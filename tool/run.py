@@ -64,6 +64,7 @@ def run_submission(problem, submission, input, previous=None):
     answer = str(submission.runnable.run(input.content))
     end = datetime.datetime.now()
     msecs = (end - start).total_seconds() * 1000
+    answer, msecs = duration_from_answer(answer, msecs)
     if previous is not None and answer != previous.answer:
         raise DifferentAnswersException("""different answers day:{} part:{}
 input: {}
@@ -156,3 +157,15 @@ def print_day_header(problem):
 
 def print_part_header(problem):
     print("\n" + BColor.MAGENTA + BColor.BOLD + "* part %d:" % problem.part + BColor.ENDC)
+
+
+def duration_from_answer(answer, msec):
+    DURATION_HEADER_PREFIX = "_duration:"
+    split = answer.split("\n")
+    if len(split) < 2 or (not split[0].startswith(DURATION_HEADER_PREFIX)):
+        return answer, msec
+    try:
+        return "\n".join(split[1:]), float(split[0][len(DURATION_HEADER_PREFIX):])
+    except ValueError:
+        pass
+    return answer, msec
