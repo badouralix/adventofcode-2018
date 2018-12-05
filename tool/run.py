@@ -5,6 +5,7 @@ import sys
 import datetime
 from collections import defaultdict
 from tabulate import tabulate
+from tqdm import tqdm
 # project
 import tool.discovery as discovery
 from tool.config import CONFIG
@@ -33,9 +34,11 @@ def run(days, parts, authors, ignored_authors, languages, force, silent, all_day
         results_by_author = defaultdict(dict)
         results_by_input = defaultdict(dict)
 
+        pbar = tqdm(total=len(inputs)*len(submissions))
         for input in inputs:
             previous = None
             for submission in submissions:
+                pbar.update(1)
                 if restricted and input.author != submission.author:
                     continue
                 try:
@@ -46,6 +49,7 @@ def run(days, parts, authors, ignored_authors, languages, force, silent, all_day
                 except DifferentAnswersException as e:
                     errors.append(
                         "{}ERROR: {}{}".format(BColor.RED, e, BColor.ENDC))
+        pbar.close()
         if restricted:
             print_restrict_results(problem, results_by_author)
         elif expand:
