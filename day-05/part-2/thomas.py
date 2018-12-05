@@ -10,7 +10,8 @@ class ThomasSubmission(SubmissionPy):
                 res.pop()
             else:
                 res.append(char)
-        return len(res)
+        return ''.join(res)
 
     def run(self, s):
-        return min([self.react(s.replace(chr(i), '').replace(chr(i+32), '')) for i in range(65, 91)])
+        s = self.react(s)
+        return min([len(self.react(s.replace(chr(i), '').replace(chr(i+32), ''))) for i in range(65, 91)])
