@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <iterator>
 #include <cstdio>
+#include <stack>
 #include <string>
 #include <vector>
 
@@ -8,26 +9,17 @@ int abs(int x) {
     return x >= 0 ? x : -x;
 }
 
-int react_polymer(std::string polymer) {
-    bool hasChanged;
+int react_polymer(const std::string& polymer) {
+    std::stack<char> stack;
 
-    do {
-        hasChanged = false;
-        size_t i = 0;
-        while (i < polymer.length() - 1) {
-            if (abs(polymer[i] - polymer[i+1]) == 32) {     // Hack for lower/upper case check
-                polymer.erase(i, 2);
-                hasChanged = true;
-                // Opti: backtrack one character
-                if (i > 0)  i--;
-            }
-            else {
-                i++;
-            }
-        }
-    } while(hasChanged);
+    for (char c : polymer) {
+        if (!stack.empty() && abs(c - stack.top()) == 32)   // Hack for lower/upper case check
+            stack.pop();
+        else
+            stack.push(c);
+    }
 
-    return polymer.length();
+    return stack.size();
 }
 
 int transform_react(std::string polymer, char atom) {
