@@ -2,15 +2,8 @@ import errno
 import subprocess
 import tempfile
 
-from .wrapper import SubmissionWrapper
-
-
-class CompilationError(Exception):
-    pass
-
-
-class RuntimeError(Exception):
-    pass
+from tool.runners.wrapper import SubmissionWrapper
+from tool.runners.exceptions import CompilationError, RuntimeError
 
 
 class SubmissionC(SubmissionWrapper):

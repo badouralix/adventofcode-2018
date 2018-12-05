@@ -4,19 +4,8 @@ import stat
 from subprocess import check_output, Popen, PIPE
 import tempfile
 
-from .wrapper import SubmissionWrapper
-
-
-class DependenciesError(Exception):
-    pass
-
-
-class CompilationError(Exception):
-    pass
-
-
-class RuntimeError(Exception):
-    pass
+from tool.runners.wrapper import SubmissionWrapper
+from tool.runners.exceptions import CompilationError, RuntimeError, DependenciesError
 
 
 class SubmissionGo(SubmissionWrapper):

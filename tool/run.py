@@ -8,7 +8,7 @@ from tabulate import tabulate
 # project
 import tool.discovery as discovery
 from tool.config import CONFIG
-from tool.model import Result
+from tool.model import Result, Submission
 from tool.utils import BColor
 
 
@@ -43,7 +43,7 @@ def run(days, parts, authors, ignored_authors, languages, force, silent, all_day
                     results_by_author[submission.author][input.author] = result
                     results_by_input[input.author][submission.author] = result
                     previous = result
-                except Exception as e:
+                except DifferentAnswersException as e:
                     errors.append(
                         "{}ERROR: {}{}".format(BColor.RED, e, BColor.ENDC))
         if restricted:
@@ -137,9 +137,11 @@ def print_aggregated_results(problem, results_by_author):
     print("---------------------------------------------------")
     results = []
     for author, results_by_input in results_by_author.items():
-        res = Result(problem, None, None, None, 0)
+        res = Result(problem, Submission(problem, author, None), None, "-", 0)
         for input_author, result in results_by_input.items():
             res.duration += result.duration
+            if res.submission.language is None:
+                res.submission.language = result.submission.language
             if author == input_author:
                 res.answer = result.answer
                 res.input = result.input

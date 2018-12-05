@@ -1,7 +1,7 @@
 import errno
 import subprocess
 
-from .wrapper import SubmissionWrapper
+from tool.runners.wrapper import SubmissionWrapper
 
 
 class SubmissionJs(SubmissionWrapper):

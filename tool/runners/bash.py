@@ -3,7 +3,7 @@ import os
 import stat
 import subprocess
 
-from .wrapper import SubmissionWrapper
+from tool.runners.wrapper import SubmissionWrapper
 
 
 class SubmissionBash(SubmissionWrapper):
