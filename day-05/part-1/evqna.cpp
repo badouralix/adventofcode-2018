@@ -1,29 +1,22 @@
 #include <cstdio>
+#include <stack>
 #include <string>
 
 int abs(int x) {
     return x >= 0 ? x : -x;
 }
 
-int solve(std::string& input) {
-    bool hasChanged;
-    do {
-        hasChanged = false;
-        size_t i = 0;
-        while (i < input.length() - 1) {
-            if (abs(input[i] - input[i+1]) == 32) {     // Hack for lower/upper case check
-                input.erase(i, 2);
-                hasChanged = true;
-                // Opti: backtrack one character
-                if (i > 0)  i--;
-            }
-            else {
-                i++;
-            }
-        }
-    } while(hasChanged);
+int solve(const std::string& input) {
+    std::stack<char> stack;
 
-    return input.length();
+    for (char c : input) {
+        if (!stack.empty() && abs(c - stack.top()) == 32)   // Hack for lower/upper case check
+            stack.pop();
+        else
+            stack.push(c);
+    }
+
+    return stack.size();
 }
 
 int main(int argc, char *argv[]) {
