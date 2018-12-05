@@ -1,36 +1,24 @@
 #include <ctime>
+#include <deque>
 #include <iostream>
-#include <list>
 #include <string>
 
 int run(std::string input) {
-  bool modified(false);
-  std::list<unsigned int> to_delete{};
-  do {
-    modified = false;
-    to_delete = {};
-    // Search for elements to delete
-    unsigned int index(0);
-    while (index < input.size() - 1) {
-      int here = (int)input[index];
-      int next = (int)input[index + 1];
-      if (here - next == 32 || next - here == 32) {
-        to_delete.push_back(index);
-        modified = true;
-        ++index;
-      }
-      ++index;
-    }
-    // Delete marked elements
-    if (modified) {
-      int nb_deleted(0);
-      for (unsigned int it : to_delete) {
-        input.erase(it - nb_deleted,2);
-        nb_deleted += 2;
+  std::deque<char> list{};
+  for (char c : input) {
+    if (list.empty()) {
+      list.push_front(c);
+    } else {
+      int front = (int)list.front();
+      int next = (int)c;
+      if (front - next == 32 || next - front == 32) {
+        list.pop_front();
+      } else {
+        list.push_front(c);
       }
     }
-  } while (modified);
-  return input.size();
+  }
+  return list.size();
 }
 
 int main(int argc, char **argv) {
