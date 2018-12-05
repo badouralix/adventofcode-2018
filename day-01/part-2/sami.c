@@ -2,62 +2,87 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// The poor's hashmap
-struct node {
-  int value;
-  struct node *left;
-  struct node *right;
+#define HASHSIZE 100000
+
+typedef struct nlist *dict[HASHSIZE];
+struct nlist {
+  struct nlist *next;
+  int key;
 };
 
-struct node *new_node(void) {
-  return (struct node *)malloc(sizeof(struct node));
-}
+int lookup(dict *h, int key);
+void set(dict *h, int key);
+dict *new_dict(void);
 
-// prints the result and exit if the element is already in the tree, otherwise returns the tree
-struct node *push(struct node *t, int el) {
-  if (t == NULL) {
-    t = new_node();
-    t->value = el;
-    t->left = t->right = NULL;
-  } 
-  else if (el < t->value) {
-    t->left = push(t->left, el);
-  } 
-  else if (el > t->value) {
-    t->right = push(t->right, el);
-  } 
-  else {
-    printf("%d\n", el);
-    exit(0);
+dict *new_dict(void) {
+  dict *h = NULL;
+  h = (dict *)malloc(sizeof(dict));
+  for (int i = 0; i < HASHSIZE; ++i) {
+    (*h)[i] = NULL;
   }
-
-  return t;
+  return h;
 }
 
-void run(char *s) {
+unsigned hash(int v) { return (v % HASHSIZE + HASHSIZE) % HASHSIZE; }
+
+void set(dict *h, int key) {
+  struct nlist *np;
+  unsigned hashval;
+
+  if (lookup(h, key) == 0) {
+    // TODO check for malloc error
+    np = (struct nlist *)malloc(sizeof(struct nlist));
+    np->key = key;
+
+    hashval = hash(key);
+    np->next = (*h)[hashval];
+    (*h)[hashval] = np;
+  }
+}
+
+int lookup(dict *h, int key) {
+  struct nlist *np;
+  for (np = (*h)[hash(key)]; np != NULL; np = np->next) {
+    if (key == np->key) {
+      return 1;
+    }
+  }
+  return 0;
+}
+
+int run(char *s) {
   int res = 0;
   int buffer = 0;
   char op = '\0';
+  char *init = s;
 
-  struct node *tree = NULL;
+  dict *h = new_dict();
 
   for (;;) {
-    for (int i = 0; s[i] != EOF && s[i] != '\0'; ++i) {
-      if (s[i] == '+' || s[i] == '-') {
-        op = s[i];
-      } 
-      else if (isdigit(s[i])) {
-        buffer = buffer * 10 + s[i] - '0';
-      } 
-      else if (s[i] == '\n') {
-        res = op == '+' ? res + buffer : res - buffer;
+    for (; *s != EOF && *s != '\0'; s++) {
+      if (isdigit(*s))
+        buffer = buffer * 10 + *s - '0';
+      else {
+        switch (*s) {
+        case '+':
+        case '-':
+          op = *s;
+          break;
 
-        tree = push(tree, res);
-        buffer = 0;
+        case '\n':
+          res = op == '+' ? res + buffer : res - buffer;
+
+          if (lookup(h, res) == 1)
+            return res;
+
+          set(h, res);
+          buffer = 0;
+        }
       }
     }
-    res = op == '+' ? res + buffer : res - buffer;
-    buffer = 0;
+    s = init;
+      res = op == '+' ? res + buffer : res - buffer;
+      buffer = 0;
   }
 }
 
@@ -67,6 +92,6 @@ int main(int argc, char **argv) {
     exit(1);
   }
 
-  run(argv[1]);
+  printf("%d\n", run(argv[1]));
   return 0;
 }
