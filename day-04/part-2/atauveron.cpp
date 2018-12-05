@@ -65,25 +65,19 @@ int run(std::string input_str) {
     }
   }
   // Exploit the extracted data
-  // Find the guard with most minutes asleep
   int id_max(0);
-  unsigned int max_loc(0);
-  for (auto &it : time) {
-    if(it.second>max_loc){
-      id_max = it.first;
-      max_loc = it.second;
-    }
-  }
-  // For this guard, find the minute for which he's most often asleep
   unsigned int min_max(0);
-  max_loc = 0;
-  for (unsigned int i=0 ; i<60; ++i){
-    if (asleep[id_max][i]>max_loc){
-      min_max = i;
-      max_loc = asleep[id_max][i];
+  unsigned int max_loc(0);
+  for (auto &it : asleep) {
+    for (unsigned int i = 0; i < 60; ++i) {
+      if (it.second[i] > max_loc) {
+        id_max = it.first;
+        min_max = i;
+        max_loc = it.second[i];
+      }
     }
   }
-  return id_max*min_max; // FIXME
+  return id_max * min_max; // FIXME
 }
 
 int main(int argc, char **argv) {
