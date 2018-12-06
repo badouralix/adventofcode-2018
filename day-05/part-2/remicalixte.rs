@@ -40,15 +40,18 @@ fn remove_char(s: &String, c: u8) -> String {
 }
 
 fn react_string(s: String) -> String {
-    let mut v: Vec<u8> = Vec::with_capacity(s.len());
-    for c2 in s.bytes() {
-        if react(v.last(), &c2) {
-            v.pop();
-        } else {
-            v.push(c2);
+    let mut res = String::with_capacity(s.len());
+    unsafe {
+        let v = res.as_mut_vec();
+        for c2 in s.bytes() {
+            if react(v.last(), &c2) {
+                v.pop();
+            } else {
+                v.push(c2);
+            }
         }
     }
-    String::from_utf8(v).unwrap()
+    res
 
 }
 
