@@ -4,17 +4,8 @@ import re
 
 class YouyounSubmission(SubmissionPy):
 
-    @staticmethod
-    def sort_lambda(log_line):
-        parsed = re.search(r"^\[\d+-(\d+)-(\d+)\s(\d+):(\d+)\]\s(.*)", log_line.strip())
-        return parsed.group(1), parsed.group(2), parsed.group(3), parsed.group(4)
-
-    @staticmethod
-    def sort_input(Logs):
-        return sorted(Logs, key=lambda e: YouyounSubmission.sort_lambda(e))
-
     def run(self, s):
-        sorted_input = YouyounSubmission.sort_input(s.splitlines())
+        sorted_input = sorted(s.splitlines())
         minute_logs = []
         for log in sorted_input:
             parsed_input = re.search(r"^\[\d+-\d+-\d+\s\d+:(\d+)\]\s(.*)", log.strip())
