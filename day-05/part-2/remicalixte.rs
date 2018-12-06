@@ -17,8 +17,7 @@ fn run(input: String) -> String {
     let input = react_string(input);
     let mut min = input.len();
     for c in 65..91 {
-        let s = remove_char(&input, c);
-        let new_min = react_string(s).len();
+        let new_min = react_string_ignore(&input, c);
         if new_min < min {
             min = new_min;
         }
@@ -27,31 +26,32 @@ fn run(input: String) -> String {
 }
 
 
-fn remove_char(s: &String, c: u8) -> String {
-    let mut res = String::with_capacity(s.len());
-
+fn react_string(s: String) -> String {
+    let mut v: Vec<u8> = Vec::new();
     for c2 in s.bytes() {
-        if !(c2 == c || c2 + 32 == c || c2 - 32 == c) {
-            res.push(c2 as char)
+        if react(v.last(), &c2) {
+            v.pop();
+        } else {
+            v.push(c2);
         }
     }
+    String::from_utf8(v).unwrap()
 
-    res
 }
 
-fn react_string(s: String) -> String {
-    let mut res = String::with_capacity(s.len());
-    unsafe {
-        let v = res.as_mut_vec();
-        for c2 in s.bytes() {
-            if react(v.last(), &c2) {
-                v.pop();
-            } else {
-                v.push(c2);
-            }
+fn react_string_ignore(s: &String, i: u8) -> usize {
+    let mut v: Vec<u8> = Vec::new();
+    for c2 in s.bytes() {
+        if c2 == i || c2 + 32 == i || c2 - 32 == i {
+            continue;
+        }
+        if react(v.last(), &c2) {
+            v.pop();
+        } else {
+            v.push(c2);
         }
     }
-    res
+    v.len()
 
 }
 
