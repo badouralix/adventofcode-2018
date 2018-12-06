@@ -13,10 +13,7 @@ class SilvestreSubmission(SubmissionPy):
         ret = 0
         for i in range(x_min, x_max+1):
             for j in range(y_min, y_max+1):
-                if self.sum_distances(i, j, points) < 10000:
+                if np.abs(points - [i, j]).sum() < 10000:
                     ret += 1
         return ret
 
-    def sum_distances(self, i, j, points):
-        dist = np.abs(points - [i, j])
-        return np.sum(dist)
