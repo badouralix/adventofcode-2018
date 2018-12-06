@@ -2,27 +2,28 @@
 #include <string>
 #include <ctime>
 #include <stack>
+#include <vector>
 
 using namespace std;
 
-stack<char> reduce(const string& s) {
-    stack<char> stack;
+vector<char> reduce(const string& s) {
+    vector<char> vstack;
     for (char c: s) {
-        if (!stack.empty() && abs(c - stack.top()) == 32) {
-            stack.pop();
+        if (vstack.size() > 0 && abs(c - vstack.back()) == 32) {
+            vstack.pop_back();
         } else {
-            stack.push(c);
+            vstack.push_back(c);
         }
     }
-    return stack;
+    return vstack;
 }
 
 int run(string s) {
-    stack<char> stack = reduce(s);
+    vector<char> vstack = reduce(s);
     int mini = s.length();
     for (int ignore_char = 65; ignore_char<92; ignore_char++) { // iterate over alphabet
         std::stack<char> substack;
-        for (char& c: s) {
+        for (auto const& c: vstack) {
             if (!substack.empty() && abs(c - substack.top()) == 32) {
                 substack.pop();
             } else if (c != ignore_char && c != ignore_char + 32) {
