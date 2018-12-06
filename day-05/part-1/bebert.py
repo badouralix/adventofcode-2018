@@ -4,14 +4,10 @@ from runners.python import SubmissionPy
 class BebertSubmission(SubmissionPy):
 
     def run(self, s):
-        letters = list(s)
-        cur = 0
-        while cur < len(letters) - 1:
-            if abs(ord(letters[cur]) - ord(letters[cur + 1])) == 32:
-                del letters[cur]
-                del letters[cur]
-                if cur > 0:
-                    cur -= 1
+        res = []
+        for x in s:
+            if res and abs(ord(res[-1]) - ord(x)) == 32:
+                res.pop()
             else:
-                cur += 1
-        return len(letters)
+                res.append(x)
+        return len(res)
