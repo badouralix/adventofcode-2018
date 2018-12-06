@@ -35,15 +35,15 @@ fn run(input: &str) -> usize {
     let mut res = 0;
     for line in input.lines() {
         let mut words = line.split_whitespace();
-        let mut corner = words.nth(2).unwrap().trim_end_matches(":").split(",");
+        let mut corner = words.nth(2).unwrap().trim_end_matches(":").split(',');
         let x: usize = corner.next().unwrap().parse().expect("Wrong entry");
         let y: usize = corner.next().unwrap().parse().expect("Wrong entry");
-        let mut size = words.next().unwrap().split("x");
+        let mut size = words.next().unwrap().split('x');
         let lx: usize = size.next().unwrap().parse().expect("Wrong entry");
         let ly: usize = size.next().unwrap().parse().expect("Wrong entry");
-        for i in x..x + lx {
-            for j in y..y + ly {
-                if fabric[i][j].next() {
+        for fabric_line in fabric.iter_mut().skip(x).take(lx) {
+            for fabric_piece in fabric_line.iter_mut().skip(y).take(ly) {
+                if fabric_piece.next() {
                     res += 1;
                 }
             }
