@@ -6,7 +6,7 @@ class StickySubmission(SubmissionPy):
         l = [int(f) for f in s.splitlines()]
         d = [0]
         s = 0
-        while True:
+        for i in range(1e5):
             for f in l:
               s += f
               if s in d:
