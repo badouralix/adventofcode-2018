@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <strings.h>
+#include <time.h>
 
 #define ALPHABET 26
 
@@ -42,6 +43,10 @@ int main(int argc, char **argv) {
     printf("Missing one argument\n");
     exit(1);
   }
-  printf("%d\n", run(argv[1]));
+  clock_t start = clock();
+  int answer = run(argv[1]);
+
+  printf("_duration:%f\n%d\n",
+         (float)(clock() - start) * 1000.0 / CLOCKS_PER_SEC, answer);
   return 0;
 }

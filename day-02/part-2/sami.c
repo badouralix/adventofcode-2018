@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <strings.h>
+#include <time.h>
 
 #define HASHSIZE 1000
 const int MAXSIZE = 26;
@@ -22,7 +23,7 @@ dict *new_dict(void) {
   dict *h = NULL;
   h = (dict *)malloc(sizeof(dict));
   for (int i = 0; i < HASHSIZE; ++i) {
-   *h[i] = NULL; 
+    *h[i] = NULL;
   }
   return h;
 }
@@ -48,7 +49,7 @@ struct nlist *set(dict *h, char *name, int i) {
     np->next = *h[hashval];
     np->v = i;
     *h[hashval] = np;
-  } 
+  }
 
   return np;
 }
@@ -71,8 +72,8 @@ char *clonestr(char *s) {
 }
 
 char *run(char *s) {
-  char *token = (char *) malloc(MAXSIZE);
-  char *buffer = (char *) malloc(MAXSIZE);
+  char *token = (char *)malloc(MAXSIZE);
+  char *buffer = (char *)malloc(MAXSIZE);
   int len = 0;
 
   dict *d = new_dict();
@@ -86,7 +87,7 @@ char *run(char *s) {
       strncpy(buffer + i, token + i + 1, len - i);
       if (lookup(d, buffer, i) != NULL)
         return buffer;
-      else 
+      else
         set(d, buffer, i);
     }
   }
@@ -99,6 +100,10 @@ int main(int argc, char **argv) {
     printf("Missing one argument\n");
     exit(1);
   }
-  printf("%s\n", run(argv[1]));
+  clock_t start = clock();
+  char *answer = run(argv[1]);
+
+  printf("_duration:%f\n%s\n",
+         (float)(clock() - start) * 1000.0 / CLOCKS_PER_SEC, answer);
   return 0;
 }
