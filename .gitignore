@@ -11,3 +11,6 @@ target/
 
 # No effing test ;)
 *_test.go
+
+Pipfile
+Pipfile.lock
