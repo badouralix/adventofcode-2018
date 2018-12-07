@@ -116,9 +116,10 @@ def get_submissions(problem, authors=None, ignored_authors=None, languages=None,
     for _, _, files in walk(problem.path()):
         for filename in files:
             submission, ext = os.path.splitext(filename)
-            if ext not in extensions:
+            basename = os.path.basename(submission)
+            if (ext not in extensions) or basename.endswith('_test.go'):
                 continue
-            author = os.path.basename(submission).split('.')[0]
+            author = basename.split('.')[0]
             if ignored_authors and author in ignored_authors:
                 continue
             if authors and author not in authors:

@@ -9,3 +9,9 @@ target/
 .aoc
 # To allow to keep code but not push it because it's too slow
 *.save
+
+# No effing test ;)
+*_test.go
+
+Pipfile
+Pipfile.lock
