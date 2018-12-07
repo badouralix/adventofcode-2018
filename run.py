@@ -84,7 +84,7 @@ def _find_submissions_for_contest(contest_path):
     for _, _, files in walk(contest_path):
         for filename in files:
             submission, ext = os.path.splitext(filename)
-            if ext in ALLOWED_EXT:
+            if ext in ALLOWED_EXT and filename[-8:] != "_test.go":
                 submission_files.append((submission, ext))
     return submission_files
 
@@ -172,6 +172,18 @@ def _sort_leaderboard(table):
     return sorted(table, key=lambda r: r[2])
 
 
+def duration_from_answer(answer, msec):
+    DURATION_HEADER_PREFIX = "_duration:"
+    split = str(answer).split("\n")
+    if len(split) < 2 or (not split[0].startswith(DURATION_HEADER_PREFIX)):
+        return answer, msec
+    try:
+        return "\n".join(split[1:]), float(split[0][len(DURATION_HEADER_PREFIX):])
+    except ValueError:
+        pass
+    return answer, msec
+
+
 def run_submissions_for_contest(contest_path):
     print("\n" + bcolors.MAGENTA + bcolors.BOLD + "* contest %s:" % os.path.basename(contest_path) + bcolors.ENDC)
     submissions = load_submissions_for_contest(contest_path)
@@ -199,6 +211,7 @@ def run_submissions_for_contest(contest_path):
                 answer = _run_submission(author, submission, input_content)
                 time_after = datetime.datetime.now()
                 msecs = (time_after - time_before).total_seconds() * 1000
+                answer, msecs = duration_from_answer(answer, msecs)
                 table.append([
                     "  {green}{author}{end}  ".format(green=bcolors.GREEN, author=author, end=bcolors.ENDC),
                     "  {blue}{answer}{end}  ".format(blue=bcolors.BLUE, answer=answer, end=bcolors.ENDC),
