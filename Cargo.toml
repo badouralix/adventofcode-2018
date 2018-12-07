@@ -84,3 +84,7 @@ path = "./day-06/part-1/enizor.rs"
 [[bin]]
 name = "day-06-part-2-enizor"
 path = "./day-06/part-2/enizor.rs"
+
+[[bin]]
+name = "day-01-part-1-sticky-jr"
+path = "./day-01/part-1/sticky-jr.rs"
