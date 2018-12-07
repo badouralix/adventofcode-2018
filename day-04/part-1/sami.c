@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-const int MAXGUARDS = 5000;
-const int MAXLINES = 2000;
+#define MAXGUARDS 5000
+#define MAXLINES 2000
 
 enum {
   UNDEFINED = -2,
@@ -133,6 +133,7 @@ int run(char *s) {
 
   int curr = es[0]->guard; // Current guard
   int maxg, maxm; // Max guard and max minute
+  maxm = maxg = 0;
   short int m;
 
   // Restart at the beginning of the array
