@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <strings.h>
+#include <string.h>
 #include <time.h>
 
 #define ALPHABET 26
@@ -30,6 +30,7 @@ void count(char *s, int *two, int *three) {
 int run(char *s) {
   char *token;
   int two, three;
+  two = three = 0;
 
   while ((token = strsep(&s, "\n")) != NULL) {
     count(token, &two, &three);
