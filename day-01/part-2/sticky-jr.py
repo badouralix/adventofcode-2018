@@ -11,4 +11,4 @@ class StickySubmission(SubmissionPy):
               s += f
               if s in d:
                   return s
-              d.append(s)
+              d.add(s)
