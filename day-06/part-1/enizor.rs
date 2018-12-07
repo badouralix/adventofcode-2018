@@ -29,12 +29,14 @@ fn run(input: &str) -> usize {
         // update min & max coordinates
         if x < min_x {
             min_x = x;
-        } else if x + 1 > max_x {
+        }
+        if x + 1 > max_x {
             max_x = x + 1;
         }
         if y < min_y {
             min_y = y;
-        } else if y + 1 > max_y {
+        }
+        if y + 1 > max_y {
             max_y = y + 1;
         }
     }
