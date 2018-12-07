@@ -5,7 +5,7 @@
 
 const int DELTA = 'A' - 'a';
 
-int collapse(char *s, char *buf, char f, int len) {
+int collapse(char *s, char *buf, char f, int len, int min) {
   int j = 0;
   buf[0] = s[0];
 
@@ -14,6 +14,9 @@ int collapse(char *s, char *buf, char f, int len) {
       i++; 
       continue;
     }
+
+    if (j - 1 >= min)
+      return min;
 
     if ((buf[j] - s[i]) == DELTA || (buf[j] - s[i]) == - DELTA) {
       buf[j--] = '\0';
@@ -34,7 +37,7 @@ int run(char *s) {
   int c;
 
   for (int i = 'a'; i <= 'z'; ++i) {
-     c = collapse(s, buf, i, len);
+     c = collapse(s, buf, i, len, min);
      min = c < min ? c : min;
   }
 
