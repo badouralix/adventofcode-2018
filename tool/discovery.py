@@ -89,15 +89,21 @@ def get_problems(days, parts, all_days_parts=False):
     elif days:
         problems = get_all_problems(days)
     elif parts:
-        problems = []
-        for part in parts:
-            for day in get_days_for_part(part):
-                problems.append(Problem(day, part))
-        problems = problems
+        latest = get_latest_problem()
+        if not latest:
+            return []
+        problems = [
+            Problem(latest.day, part)
+            for part in get_parts_for_day(latest.day)
+            if part in parts
+        ]
     else:
         latest = get_latest_problem()
         if latest:
-            problems = [latest]
+            problems = [
+                Problem(latest.day, part)
+                for part in get_parts_for_day(latest.day)
+            ]
     return sorted(problems, key=lambda p: (p.day, p.part))
 
 
