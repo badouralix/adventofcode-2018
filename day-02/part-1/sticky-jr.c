@@ -28,6 +28,7 @@ int main(int argc, char** argv) {
 			switch (++ctr[*input - 'a']) {
 				case 2: ++c_dbl; break;
 				case 3: ++c_tpl; --c_dbl; break;
+				case 4: --c_tpl; break;
 			}
 		}
 		p = *input;
