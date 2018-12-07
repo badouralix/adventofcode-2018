@@ -23,7 +23,7 @@ string run(string s) {
     for(int i = minus; i < plus; i++){
         for(int j = minus; j < plus; j++){
             int distance = 0;
-            for(int k = 0; k < points_x.size(); k++){
+            for(unsigned int k = 0; k < points_x.size(); k++){
                 distance += abs(points_x.at(k) - i) + abs(points_y.at(k) - j);
                 if(distance > 10000){
                     break;
