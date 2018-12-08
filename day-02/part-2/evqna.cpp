@@ -1,26 +1,29 @@
-#include <cstdio>
+#include <iostream>
 #include <set>
 #include <sstream>
 #include <string>
 #include <vector>
 
-std::vector<std::string> parse_input(const std::string& in) {
-    std::istringstream istream(in);
-    std::vector<std::string> vec;
-    for (std::string line; std::getline(istream, line); ) {
+using namespace std;
+
+vector<string> parse_input(const string& in) {
+    istringstream iss(in);
+    vector<string> vec;
+    for (string line; getline(iss, line); ) {
         vec.push_back(line);
     }
     return vec;
 }
 
-std::string part_2(const std::vector<std::string>& boxes) {
+string run(const string in) {
+    auto boxes = parse_input(in);
     int box_size = boxes[0].length();
 
     for (int i = 0; i < box_size; i++) {
-        std::set<std::string> names;
+        set<string> names;
         // Remove letter i from all names, check if 2 are equal
-        for (auto& id : boxes) {
-            std::string tmp = std::string(id).erase(i, 1);
+        for (const auto& id : boxes) {
+            string tmp = string(id).erase(i, 1);
             if (names.find(tmp) != names.end())
                 return tmp;
             names.insert(tmp);
@@ -30,10 +33,16 @@ std::string part_2(const std::vector<std::string>& boxes) {
     return "";
 }
 
-int main(int argc, char *argv[]) {
-    auto boxes = parse_input(argv[1]);
+int main(int argc, char **argv) {
+    if (argc < 2) {
+        cout << "Missing one argument" << endl;
+        exit(1);
+    }
 
-    printf("%s\n", part_2(boxes).c_str());
-
+    clock_t start = clock();
+    auto answer = run(string(argv[1]));
+    
+    cout << "_duration:" << float( clock () - start ) * 1000.0 /  CLOCKS_PER_SEC << "\n";
+    cout << answer << "\n";
     return 0;
 }
