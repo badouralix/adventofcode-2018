@@ -13,7 +13,7 @@ class ThomasSubmission(SubmissionPy):
                 nb_nodes.append(tree[i])
                 nb_metadata.append(tree[i + 1])
                 i += 2
-            else:
+            if len(nb_nodes) and not nb_nodes[-1]:
                 sum_metadata += sum([tree[i + j] for j in range(nb_metadata[-1])])
                 i += nb_metadata[-1]
                 nb_metadata.pop()
