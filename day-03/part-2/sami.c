@@ -101,9 +101,9 @@ int main(int argc, char **argv) {
     exit(1);
   }
   clock_t start = clock();
-  char *answer = run(argv[1]);
+  int answer = run(argv[1]);
 
-  printf("_duration:%f\n%s\n",
+  printf("_duration:%f\n%d\n",
          (float)(clock() - start) * 1000.0 / CLOCKS_PER_SEC, answer);
   return 0;
 }
