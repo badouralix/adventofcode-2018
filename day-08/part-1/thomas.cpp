@@ -8,6 +8,15 @@ using namespace std;
 
 string run(const string s)
 {
+    // Parse input
+    istringstream stream(s);
+    string line;
+    vector<int> tree;
+    while (getline(stream, line, ' '))
+    {
+        tree.push_back(atoi(line.c_str()));
+    }
+
     vector<int> nb_nodes;
     vector<int> nb_metadata{0};
     unsigned int i = 0;
