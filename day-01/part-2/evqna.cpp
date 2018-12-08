@@ -1,21 +1,25 @@
-#include <cstdio>
+#include <iostream>
 #include <set>
 #include <sstream>
 #include <string>
 #include <vector>
 
-std::vector<int> parse_input(const std::string& in) {
-    std::istringstream iss(in);
-    std::vector<int> vec;
-    for (std::string line; std::getline(iss, line); ) {
-        vec.push_back(std::stoi(line));
+using namespace std;
+
+vector<int> parse_input(const string& in) {
+    istringstream iss(in);
+    vector<int> vec;
+    for (string line; getline(iss, line); ) {
+        vec.push_back(stoi(line));
     }
     return vec;
 }
 
-int part_2(const std::vector<int>& commands) {
+int run(const string& in) {
+    auto commands = parse_input(in);
+    
     int freq = 0;
-    std::set<int> cache;
+    set<int> cache;
 
     size_t i = 0;
     do {
@@ -28,10 +32,16 @@ int part_2(const std::vector<int>& commands) {
     return freq;
 }
 
-int main(int argc, char *argv[]) {
-    auto commands = parse_input(argv[1]);
+int main(int argc, char **argv) {
+    if (argc < 2) {
+        cout << "Missing one argument" << endl;
+        exit(1);
+    }
 
-    printf("%d\n", part_2(commands));
-
+    clock_t start = clock();
+    auto answer = run(string(argv[1]));
+    
+    cout << "_duration:" << float( clock () - start ) * 1000.0 /  CLOCKS_PER_SEC << "\n";
+    cout << answer << "\n";
     return 0;
 }
