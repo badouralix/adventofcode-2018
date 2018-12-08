@@ -34,7 +34,7 @@ int sumMetadata(const vector<int>& data, int& i) {
     return sum;
 }
 
-int run(const string s) {
+int run(const string& s) {
     auto input = parse(s);
 
     int i = 0;
