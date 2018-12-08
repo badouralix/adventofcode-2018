@@ -1,10 +1,13 @@
 #include <algorithm>
 #include <cstdio>
+#include <iostream>
 #include <iterator>
 #include <numeric>
 #include <sstream>
 #include <string>
 #include <vector>
+
+using namespace std;
 
 struct Coord {
     int x, y;
@@ -18,11 +21,11 @@ int d(Coord A, Coord B) {
     return abs(A.x - B.x) + abs(A.y - B.y);
 }
 
-std::vector<Coord> parse_input(const std::string in) {
-    std::istringstream iss(in);
-    std::vector<Coord> vec;
+vector<Coord> parse_input(const string& in) {
+    istringstream iss(in);
+    vector<Coord> vec;
 
-    for (std::string line; std::getline(iss, line); ) {
+    for (string line; getline(iss, line); ) {
         Coord c;
         sscanf(line.c_str(), "%d , %d", &c.x, &c.y);
         vec.push_back(c);
@@ -31,18 +34,19 @@ std::vector<Coord> parse_input(const std::string in) {
     return vec;
 }
 
-int solve(std::vector<Coord>& coords) {
+int run(const string& in) {
     const int MAX_X = 400;
     const int MAX_Y = 400;
 
+    auto coords = parse_input(in);
     int regionSize = 0;
     for (int x = 0; x <= MAX_X; x++) {
         for (int y = 0; y <= MAX_Y; y++) {
             Coord M = {x, y};
-            std::vector<int> distances;
-            std::transform(coords.begin(), coords.end(), std::back_inserter(distances),
+            vector<int> distances;
+            transform(coords.begin(), coords.end(), back_inserter(distances),
                            [=](auto P) { return d(M, P); });
-            int totalDistance = std::accumulate(distances.begin(), distances.end(), 0);
+            int totalDistance = accumulate(distances.begin(), distances.end(), 0);
 
             if (totalDistance < 10000)
                 regionSize++;
@@ -53,9 +57,15 @@ int solve(std::vector<Coord>& coords) {
 }
 
 int main(int argc, char **argv) {
-    auto input = parse_input(argv[1]);
-    
-    printf("%d\n", solve(input));
+    if (argc < 2) {
+        cout << "Missing one argument" << endl;
+        exit(1);
+    }
 
+    clock_t start = clock();
+    auto answer = run(string(argv[1]));
+    
+    cout << "_duration:" << float( clock () - start ) * 1000.0 /  CLOCKS_PER_SEC << "\n";
+    cout << answer << "\n";
     return 0;
 }
