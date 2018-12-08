@@ -76,7 +76,7 @@ map<int, SleepPattern> compute_sleep_patterns(const vector<Record>& sorted_input
     return guard_sleep_patterns;
 }
 
-int run(const string in) {
+int run(const string& in) {
     auto input = parse_input(in);
     sort(input.begin(), input.end());
 

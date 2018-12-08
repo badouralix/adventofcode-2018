@@ -15,7 +15,7 @@ vector<int> parse_input(const string& in) {
     return vec;
 }
 
-int run(const string in) {
+int run(const string& in) {
     auto commands = parse_input(in);
     
     int freq = 0;

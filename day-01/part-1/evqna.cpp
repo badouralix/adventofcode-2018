@@ -5,7 +5,7 @@
 
 using namespace std;
 
-int run(const string in) {
+int run(const string& in) {
     istringstream istream(in);
     string line;
 

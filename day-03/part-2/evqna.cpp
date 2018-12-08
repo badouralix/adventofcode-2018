@@ -27,7 +27,7 @@ vector<Rectangle> parse_input(const string& in) {
     return vec;
 }
 
-int run(const string in) {
+int run(const string& in) {
     int grid[GRID_SIZE][GRID_SIZE] = {{0}};
     
     auto claims = parse_input(in);

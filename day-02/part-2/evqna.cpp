@@ -15,7 +15,7 @@ vector<string> parse_input(const string& in) {
     return vec;
 }
 
-string run(const string in) {
+string run(const string& in) {
     auto boxes = parse_input(in);
     int box_size = boxes[0].length();
 

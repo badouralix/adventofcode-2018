@@ -4,7 +4,7 @@
 
 using namespace std;
 
-int run(const string in) {
+int run(const string& in) {
     istringstream iss(in);
 
     int doubles = 0, triples = 0;
