@@ -30,12 +30,12 @@ char *run(char *s) {
   nb = i = j = 0;
 
   // Init array
-  for (i = 0; j < ALPHABET; i++) 
-   for (j = 0;  j < ALPHABET; j++)
-    dependencies[i][j] = DONE;
-     
+  for (i = 0; j < ALPHABET; i++)
+    for (j = 0; j < ALPHABET; j++)
+      dependencies[i][j] = DONE;
+
   char first, second;
-  for (;;s++) {
+  for (;; s++) {
     s = parseline(s, &first, &second);
     nb += seen[first - OFFSET] == 0 ? 1 : 0;
     nb += seen[second - OFFSET] == 0 ? 1 : 0;
@@ -48,28 +48,27 @@ char *run(char *s) {
       break;
   }
 
-  char *order = (char *) malloc(nb);
+  char *order = (char *)malloc(nb);
   int pos = 0;
 
   for (i = 0; i < nb && pos != nb;) {
     // We can do i
     if (counts[i] == 0) {
-      counts[i] = DONE; 
+      counts[i] = DONE;
       for (j = 0; j < nb; j++) {
-       if (dependencies[i][j] > 0) {
+        if (dependencies[i][j] > 0) {
           dependencies[i][j] = DONE;
           counts[j]--;
-       }
+        }
       }
       order[pos++] = i + OFFSET;
       i = 0;
-    }
-    else {
-      i++; 
+    } else {
+      i++;
     }
   }
   order[pos] = '\0';
-  
+
   return order;
 }
 
