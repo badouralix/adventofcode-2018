@@ -1,5 +1,0 @@
-{
-    "go.buildOnSave": "off",
-    "go.lintOnSave": "file",
-    "go.vetOnSave": "off"
-}

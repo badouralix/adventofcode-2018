@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <time.h>
+#include <stdlib.h>
 
-char* run(char* s)
-{
+char* run(char* s) {
     // Your code goes here
 }
 
