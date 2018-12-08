@@ -52,7 +52,7 @@ void count(char* s, int* two, int* three) {
 }
 
 int run(char* s) {
-    char* token;
+    char* token = s;
     int two, three;
     two = three = 0;
 
