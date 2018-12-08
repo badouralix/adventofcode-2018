@@ -12,7 +12,6 @@ const int DONE = -1;
 const int PROGRESS = -2;
 
 const int IDLE = -1;
-const int WORKING = 1;
 
 #define ALPHABET 26
 #define WORKERS 5
@@ -96,7 +95,7 @@ int run(char *s) {
 
     for (j = 0; j < nb; j++) {
       if (dependencies[workers[w]][j] > 0) {
-        dependencies[workers[k]][j] = DONE;
+        dependencies[workers[w]][j] = DONE;
         counts[j]--;
       }
     }
