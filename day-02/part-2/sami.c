@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h>
 
-#define HASHSIZE 1000
+#define HASHSIZE 1001
 const int MAXSIZE = 26;
 
 typedef struct nlist* dict[HASHSIZE];
@@ -50,7 +50,7 @@ unsigned hash(char* s, int i) {
     for (hashval = 0; *s != '\0'; s++) {
         hashval = *s + 31 * hashval;
     }
-    return (hashval + i) % HASHSIZE;
+    return hashval % HASHSIZE;
 }
 
 struct nlist* set(dict* h, char* name, int i) {
@@ -60,8 +60,10 @@ struct nlist* set(dict* h, char* name, int i) {
     if ((np = lookup(h, name, i)) == NULL) {
         np = (struct nlist*)malloc(sizeof(struct nlist));
         // Check for malloc errors
-        if (np == NULL || (np->name = clonestr(name)) == NULL)
+        if (np == NULL || (np->name = clonestr(name)) == NULL) {
             return NULL;
+        }
+
         hashval = hash(name, i);
         np->next = *h[hashval];
         np->v = i;
