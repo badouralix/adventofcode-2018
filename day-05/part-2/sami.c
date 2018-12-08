@@ -5,27 +5,31 @@
 
 const int DELTA = 'A' - 'a';
 
+int eq(char a, char b) {
+    return ((a - b) == DELTA) || ((a - b) == -DELTA);
+}
+
 int collapse(char* s, char* buf, char f, int len, int min) {
     int j = 0;
-    buf[0] = s[0];
+    buf[0] = '\0';
 
-    for (int i = 1; s[i] != '\0';) {
+    for (int i = 0; s[i] != '\0';) {
         if (s[i] == f || s[i] - f == DELTA) {
             i++;
             continue;
         }
 
-        if (j - 1 >= min)
+        if (j >= min)
             return min;
 
-        if ((buf[j] - s[i]) == DELTA || (buf[j] - s[i]) == -DELTA) {
+        if (eq(buf[j], s[i])) {
             buf[j--] = '\0';
             i++;
         } else
             buf[++j] = s[i++];
     }
 
-    return 1 + j;
+    return j;
 }
 
 int run(char* s) {
