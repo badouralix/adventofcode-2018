@@ -14,7 +14,7 @@ struct nlist {
     int v;
 };
 
-char* strsep(char** stringp, const char* delim) {
+char* strsep2(char** stringp, const char* delim) {
     char *begin, *end;
     begin = *stringp;
     if (begin == NULL)
@@ -95,7 +95,7 @@ char* run(char* s) {
 
     dict* d = new_dict();
 
-    while ((token = strsep(&s, "\n")) != NULL) {
+    while ((token = strsep2(&s, "\n")) != NULL) {
         len = len ? len : strlen(token);
 
         for (int i = 0; i < len; ++i) {
