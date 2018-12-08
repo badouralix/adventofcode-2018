@@ -64,6 +64,16 @@ def create_submission(author, path, language):
         cargo = open(os.path.join("Cargo.toml"), "a")
         cargo.write(f"\n[[bin]]\nname = \"{submission_name}\"\npath = \"{submission_file}\"\n")
         print("[+] added submission to Cargo.toml")
+    
+    # Create a symlink to workspace if it is a Golang project
+    if language == "go":
+        workspace_directory = os.path.join("./workspace", os.path.normpath(path))
+        workspace_submission_file = os.path.join("./workspace", os.path.normpath(submission_file))
+        if not os.path.exists(workspace_submission_file):
+            os.makedirs(workspace_directory, mode=0o777, exist_ok=True)
+            os.symlink(os.path.realpath(submission_file), workspace_submission_file)
+            # Log success
+            print(f"[+] created symlink in {workspace_submission_file}")
 
 
 def create_input(author, path):
