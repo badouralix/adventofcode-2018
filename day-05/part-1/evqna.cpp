@@ -1,13 +1,15 @@
-#include <cstdio>
+#include <iostream>
 #include <stack>
 #include <string>
+
+using namespace std;
 
 int abs(int x) {
     return x >= 0 ? x : -x;
 }
 
-int solve(const std::string& input) {
-    std::stack<char> stack;
+int run(const string& input) {
+    stack<char> stack;
 
     for (char c : input) {
         if (!stack.empty() && abs(c - stack.top()) == 32)   // Hack for lower/upper case check
@@ -19,10 +21,16 @@ int solve(const std::string& input) {
     return stack.size();
 }
 
-int main(int argc, char *argv[]) {
-    auto input = std::string(argv[1]);
-    
-    printf("%d\n", solve(input));
+int main(int argc, char **argv) {
+    if (argc < 2) {
+        cout << "Missing one argument" << endl;
+        exit(1);
+    }
 
+    clock_t start = clock();
+    auto answer = run(string(argv[1]));
+    
+    cout << "_duration:" << float( clock () - start ) * 1000.0 /  CLOCKS_PER_SEC << "\n";
+    cout << answer << "\n";
     return 0;
 }
