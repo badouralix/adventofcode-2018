@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func run(s string) string {
+func run(s string) interface{} {
 	// Your code goes here
 }
 
