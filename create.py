@@ -99,12 +99,13 @@ def create_submission(author, path, language):
 
     # Create a symlink to workspace if it is a Golang project
     if language == "go":
-        workspace_directory = "workspace" + path[1:]
-        absolute_submission_file = os.getcwd() + submission_file[1:]
-        workspace_submission_file = "workspace" + submission_file[1:]
+        workspace_directory = os.path.join("./workspace", os.path.normpath(path))
+        workspace_submission_file = os.path.join("./workspace", os.path.normpath(submission_file))
         if not os.path.exists(workspace_submission_file):
             os.makedirs(workspace_directory, mode=0o777, exist_ok=True)
-            os.symlink(absolute_submission_file, workspace_submission_file)
+            os.symlink(os.path.realpath(submission_file), workspace_submission_file)
+            # Log success
+            print(f"[+] created symlink in {workspace_submission_file}")
 
 def create_input(author, path):
     """
