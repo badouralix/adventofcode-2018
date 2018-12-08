@@ -34,7 +34,7 @@ int alphabet[ALPHABET] = {
     0,
 };
 
-char* __strsep(char** stringp, const char* delim) {
+char* strsep(char** stringp, const char* delim) {
     char *begin, *end;
     begin = *stringp;
     if (begin == NULL)
