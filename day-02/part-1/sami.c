@@ -34,6 +34,23 @@ int alphabet[ALPHABET] = {
     0,
 };
 
+char* __strsep(char** stringp, const char* delim) {
+    char *begin, *end;
+    begin = *stringp;
+    if (begin == NULL)
+        return NULL;
+    /* Find the end of the token.  */
+    end = begin + strcspn(begin, delim);
+    if (*end) {
+        /* Terminate the token and set *STRINGP past NUL character.  */
+        *end++ = '\0';
+        *stringp = end;
+    } else
+        /* No more delimiters; this is the last token.  */
+        *stringp = NULL;
+    return begin;
+}
+
 void count(char* s, int* two, int* three) {
     int two_seen, three_seen;
     two_seen = three_seen = 0;
