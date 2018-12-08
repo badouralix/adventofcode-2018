@@ -1,8 +1,11 @@
 #include <cstdio>
+#include <iostream>
 #include <set>
 #include <sstream>
 #include <string>
 #include <vector>
+
+using namespace std;
 
 struct Coord {
     int x, y;
@@ -16,11 +19,11 @@ int d(Coord A, Coord B) {
     return abs(A.x - B.x) + abs(A.y - B.y);
 }
 
-std::vector<Coord> parse_input(const std::string in) {
-    std::istringstream iss(in);
-    std::vector<Coord> vec;
+vector<Coord> parse_input(const string& in) {
+    istringstream iss(in);
+    vector<Coord> vec;
 
-    for (std::string line; std::getline(iss, line); ) {
+    for (string line; getline(iss, line); ) {
         Coord c;
         sscanf(line.c_str(), "%d , %d", &c.x, &c.y);
         vec.push_back(c);
@@ -29,12 +32,13 @@ std::vector<Coord> parse_input(const std::string in) {
     return vec;
 }
 
-int solve(std::vector<Coord>& input) {
+int run(const string& in) {
     const int MAX_X = 400;
     const int MAX_Y = 400;
 
-    std::vector<int> regionPopulation(input.size());
-    std::set<int> excluded;
+    auto input = parse_input(in);
+    vector<int> regionPopulation(input.size());
+    set<int> excluded;
 
     for (int x = 0; x <= MAX_X; x++) {
         for (int y = 0; y <= MAX_Y; y++) {
@@ -71,10 +75,16 @@ int solve(std::vector<Coord>& input) {
     return largestRegionSize;
 }
 
-int main(int argc, char *argv[]) {
-    auto input = parse_input(argv[1]);
-    
-    printf("%d\n", solve(input));
+int main(int argc, char **argv) {
+    if (argc < 2) {
+        cout << "Missing one argument" << endl;
+        exit(1);
+    }
 
+    clock_t start = clock();
+    auto answer = run(string(argv[1]));
+    
+    cout << "_duration:" << float( clock () - start ) * 1000.0 /  CLOCKS_PER_SEC << "\n";
+    cout << answer << "\n";
     return 0;
 }

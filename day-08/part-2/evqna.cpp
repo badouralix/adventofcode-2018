@@ -41,7 +41,7 @@ int nodeValue(const vector<int>& data, int& i) {
     return value;
 }
 
-int run(const string s) {
+int run(const string& s) {
     auto input = parse(s);
 
     int i = 0;
