@@ -1,14 +1,17 @@
 #include <algorithm>
 #include <cstdio>
+#include <iostream>
 #include <map>
 #include <sstream>
 #include <string>
 #include <vector>
 
+using namespace std;
+
 struct Record {
     int day, month, year;
     int hour, min;
-    std::string msg;
+    string msg;
 
     bool operator<(const Record& b) const {
         const Record& a = *this;
@@ -27,11 +30,11 @@ struct Record {
     }
 };
 
-std::vector<Record> parse_input(const std::string& in) {
-    std::istringstream iss(in);
-    std::vector<Record> vec;
+vector<Record> parse_input(const string& in) {
+    istringstream iss(in);
+    vector<Record> vec;
 
-    for (std::string line; std::getline(iss, line); ) {
+    for (string line; getline(iss, line); ) {
         Record r;
         sscanf(line.c_str(), "[ %d - %d - %d %d : %d ]", &r.year, &r.month, &r.day, &r.hour, &r.min);
         r.msg = line.substr(19);
@@ -46,8 +49,8 @@ struct SleepPattern {
     int freq_by_min[60] = {0};
 };
 
-std::map<int, SleepPattern> compute_sleep_patterns(const std::vector<Record>& sorted_input) {
-    std::map<int, SleepPattern> guard_sleep_patterns;
+map<int, SleepPattern> compute_sleep_patterns(const vector<Record>& sorted_input) {
+    map<int, SleepPattern> guard_sleep_patterns;
     
     int current_guard_id = -1;
     int sleep_start = 0;
@@ -55,9 +58,9 @@ std::map<int, SleepPattern> compute_sleep_patterns(const std::vector<Record>& so
     for (const auto& r : sorted_input) {
         // Read first word
         size_t pos = r.msg.find(' ');
-        std::string key = r.msg.substr(0, pos);
+        string key = r.msg.substr(0, pos);
         if (key == "Guard") {
-            current_guard_id = std::stoi(r.msg.substr(pos + 2));    // Ignore '#'
+            current_guard_id = stoi(r.msg.substr(pos + 2));    // Ignore '#'
         }
         else if (key == "falls") {
             sleep_start = r.min;
@@ -73,8 +76,9 @@ std::map<int, SleepPattern> compute_sleep_patterns(const std::vector<Record>& so
     return guard_sleep_patterns;
 }
 
-int solve(std::vector<Record>& input) {
-    std::sort(input.begin(), input.end());
+int run(const string in) {
+    auto input = parse_input(in);
+    sort(input.begin(), input.end());
 
     auto guard_sleep_patterns = compute_sleep_patterns(input);
 
@@ -101,10 +105,16 @@ int solve(std::vector<Record>& input) {
     return id_max * best_min;
 }
 
-int main(int argc, char *argv[]) {
-    auto input = parse_input(argv[1]);
-    
-    printf("%d\n", solve(input));
+int main(int argc, char **argv) {
+    if (argc < 2) {
+        cout << "Missing one argument" << endl;
+        exit(1);
+    }
 
+    clock_t start = clock();
+    auto answer = run(string(argv[1]));
+    
+    cout << "_duration:" << float( clock () - start ) * 1000.0 /  CLOCKS_PER_SEC << "\n";
+    cout << answer << "\n";
     return 0;
 }
