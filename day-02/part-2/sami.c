@@ -75,7 +75,7 @@ struct nlist* set(dict* h, char* name, int i) {
 
 struct nlist* lookup(dict* h, char* s, int i) {
     struct nlist* np;
-    for (np = *h[hash(s, i)]; np != NULL; np = np->next) {
+    for (np = (*h)[hash(s, i)]; np != NULL; np = np->next) {
         if (strcmp(s, np->name) == 0 && i == np->v)
             return np;
     }
