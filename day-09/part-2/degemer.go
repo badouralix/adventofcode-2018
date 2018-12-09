@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-const allocConst = 5000
+const allocConst = 4000
 
 type node struct {
 	val    int
@@ -41,6 +41,7 @@ func (p *pool) Get(val int, before, after *node) (current *node) {
 		current = &p.alloc[p.i]
 		p.i++
 	}
+	current.val = val
 	current.before = before
 	current.after = after
 	before.after = current
