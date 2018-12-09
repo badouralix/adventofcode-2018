@@ -15,26 +15,25 @@ class DavidSubmission(SubmissionPy):
             x = line.split(" ")
             relationships.append((x[1], x[7]))
 
-        successors = defaultdict(set)
-        parents = defaultdict()
+        dependencies = defaultdict(set)
+        reversed_dependencies = defaultdict(set)
+
         for a,b in relationships:
-            successors[a].add(b)
-            parents[b].add(b)
+            dependencies[b].add(a)
+            reversed_dependencies[a].add(b)
 
-
-        ready = sorted(list(set(parent.keys()) - set(successors.keys())))
-        visited = set()
+        activated = set()
+        to_visit = sorted(list(set(reversed_dependencies.keys()) - set(dependencies.keys())))
         result = ""
-        while len(ready) > 0:
-            item = ready.pop(0)
+
+        while len(to_visit)>0:
+            item = to_visit.pop(0)
             result += item
-            for child in successors[item]:
-                bisect.insort(ready, child)
-            if len(successors[item]) == 0:
-                break
-
+            activated.add(item)
+            for c in reversed_dependencies[item]:
+                if all(dep in activated for dep in dependencies[c]):
+                    bisect.insort(to_visit, c)
         return result
-
 
 
 
