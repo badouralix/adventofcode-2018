@@ -1,9 +1,9 @@
 #include <algorithm>
 #include <iostream>
-#include <map>
 #include <set>
 #include <sstream>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 using namespace std;
@@ -54,7 +54,7 @@ int run(const string& in) {
 
     accumulator.pop_back();
     
-    map<int, vector<Val>> freqByModulus;
+    unordered_map<int, vector<Val>> freqByModulus;
     for (int i = 0; i < accumulator.size(); i++)
         freqByModulus[mod(accumulator[i], runDelta)].push_back({accumulator[i], i});
 
