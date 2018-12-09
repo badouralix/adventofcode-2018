@@ -1,4 +1,4 @@
-from runners.python import SubmissionPy
+from tool.runners.python import SubmissionPy
 from collections import Counter
 
 class LudogeSubmission(SubmissionPy):

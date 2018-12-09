@@ -6,6 +6,7 @@ node_modules/
 .vscode
 target/
 *.rs.bk
+.aoc
 # To allow to keep code but not push it because it's too slow
 *.save
 # To allow to work on gocode

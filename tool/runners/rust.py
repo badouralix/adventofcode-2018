@@ -3,15 +3,8 @@ import os
 import subprocess
 import tempfile
 
-from .wrapper import SubmissionWrapper
-
-
-class CompilationError(Exception):
-    pass
-
-
-class RuntimeError(Exception):
-    pass
+from tool.runners.wrapper import SubmissionWrapper
+from tool.runners.exceptions import CompilationError, RuntimeError
 
 
 class SubmissionRs(SubmissionWrapper):
@@ -28,7 +21,7 @@ class SubmissionRs(SubmissionWrapper):
             raise CompilationError(e.output)
 
         e = subprocess.Popen(["cargo", "build", "--release", "--bin",
-                             file.replace('/', '-')[:-3]],
+                              file.replace('/', '-')[:-3]],
                              env={**os.environ, "CARGO_TARGET_DIR": tmpdir.name},
                              stdout=DEVNULL,
                              stderr=DEVNULL).wait()

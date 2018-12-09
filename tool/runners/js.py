@@ -1,21 +1,21 @@
 import errno
 import subprocess
 
-from .wrapper import SubmissionWrapper
+from tool.runners.wrapper import SubmissionWrapper
 
 
-class SubmissionRb(SubmissionWrapper):
+class SubmissionJs(SubmissionWrapper):
 
     def __init__(self, file):
         SubmissionWrapper.__init__(self)
         self.file = file
 
     def language(self):
-        return 'rb'
+        return 'js'
 
     def exec(self, input):
         try:
-            return subprocess.check_output(["ruby", self.file, input]).decode()
+            return subprocess.check_output(["node", self.file, input]).decode()
         except OSError as e:
             if e.errno == errno.ENOENT:
                 # executable not found
@@ -25,4 +25,4 @@ class SubmissionRb(SubmissionWrapper):
                 return None
 
     def __call__(self):
-        return SubmissionRb(self.file)
+        return SubmissionJs(self.file)

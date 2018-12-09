@@ -1,4 +1,4 @@
-from runners.python import SubmissionPy
+from tool.runners.python import SubmissionPy
 
 def select_next(deps, done):
     for let in deps:

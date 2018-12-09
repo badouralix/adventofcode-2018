@@ -3,7 +3,7 @@ Wrapper class handling the communication between the main python process and
 the funky language subprocesses.
 """
 
-from .python import SubmissionPy
+from tool.runners.python import SubmissionPy
 
 
 class SubmissionWrapper(SubmissionPy):
