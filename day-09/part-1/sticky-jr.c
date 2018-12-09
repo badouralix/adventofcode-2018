@@ -1,38 +1,37 @@
 #include <stdio.h>
 #include <time.h>
 #include <string.h>
+#include <stdlib.h>
 
 unsigned int scores[1024];
-unsigned int status[65536];
-unsigned int veclen = 1;
 unsigned int players = 0;
 unsigned int player = 0;
 unsigned int last = 0;
 unsigned int maxscore = 0;
-unsigned int circled = 0;
 
-void print_status() {
-	for (unsigned int i = 0; i < veclen; ++i) {
-		if (circled == i) {
-			printf("(%d) ", status[i]);
-		}
-		else {
-			printf("%d ", status[i]);
-		}
-	}
-	printf("\n");
+typedef struct vec {
+	unsigned int val;
+	struct vec* next;
+	struct vec* prev;
+} vec;
+
+vec* root;
+vec* circled;
+
+void insert_after(unsigned int m, vec* position) {
+  vec* new_node = (vec*)malloc(sizeof(vec));
+  vec* right = position->next;
+  new_node->val = m; new_node->prev=position;new_node->next=right;
+  position->next = new_node;
+  right->prev=new_node;
+  circled = new_node;
 }
 
-void insert_after(unsigned int m, unsigned int p) {
-  ++veclen; ++p;
-  for (unsigned int i = veclen-1; i >=p ; --i) status[i] = status[i-1];
-  status[p] = m;
-  circled = p;
-}
-
-void remove_at(unsigned int p) {
-  for(unsigned int i=p; i<veclen-1;++i) status[i] = status[i+1];
-  --veclen;  
+void remove_at(vec* position) {
+  vec* left = position->prev;
+  vec* right = position->next;
+  left->next = right;
+  right->prev = left;
 }
 
 int main(int argc, char** argv) {
@@ -44,23 +43,25 @@ int main(int argc, char** argv) {
 
   sscanf(input, "%d players; last marble is worth %d points\n", &players, &last);
 
-  status[0] = 0;
-  memset(scores, 0, sizeof(unsigned int) * players);
+  root = (vec*)malloc(sizeof(vec));
+  root->val = 0;  root->prev = root;  root->next = root;
+  circled = root;
 
-  print_status();
+  memset(scores, 0, sizeof(unsigned int) * players);
 
   for(unsigned int round = 1; round <= last; ++round) {
     player = (player == players)?1:player + 1;
     if (round % 23 == 0) {
       scores[player] += round;
-      circled = (circled + veclen - 7)%veclen;
-      scores[player] += status[circled];
-      remove_at(circled);
+      vec* to_remove = circled->prev->prev->prev->prev->prev->prev->prev;
+      circled = to_remove->next;
+      scores[player] += to_remove->val;
+      remove_at(to_remove);
 
       maxscore = scores[player] > maxscore?scores[player]:maxscore;
 
     }
-    else insert_after(round, (circled+1)%veclen );
+    else insert_after(round, circled->next );
   }
 
   printf("_duration:%f\n", (float)(clock() - start) * 1000.0 / CLOCKS_PER_SEC);
