@@ -9,10 +9,47 @@ import (
 	"time"
 )
 
+const allocConst = 5000
+
 type node struct {
+	val    int
 	before *node
 	after  *node
-	val    int
+}
+
+type pool struct {
+	prev  *node
+	alloc []node
+	i     int
+}
+
+func newPool() pool {
+	return pool{
+		alloc: make([]node, allocConst),
+	}
+}
+
+func (p *pool) Get(val int, before, after *node) (current *node) {
+	if p.prev != nil {
+		current = p.prev
+		p.prev = nil
+	} else {
+		if p.i == len(p.alloc) {
+			p.alloc = make([]node, allocConst)
+			p.i = 0
+		}
+		current = &p.alloc[p.i]
+		p.i++
+	}
+	current.before = before
+	current.after = after
+	before.after = current
+	after.before = current
+	return current
+}
+
+func (p *pool) Put(c *node) {
+	p.prev = c
 }
 
 func run(s string) interface{} {
@@ -21,32 +58,22 @@ func run(s string) interface{} {
 	players, _ := strconv.Atoi(parsed[0])
 	last, _ := strconv.Atoi(parsed[len(parsed)-2])
 	last *= 100
-	marbles := &node{val: 0}
+	current := &node{val: 0}
+	current.after = current
+	current.before = current
 	playerScores := make([]int, players)
-	current := marbles
-	for i := 0; i < last; i++ {
-		marble := i + 1
-		player := marble % players
-		if marble == 1 {
-			current.after = &node{val: 1, after: current, before: current}
-			current.before = current.after
-			current = current.after
-			continue
-		}
+	pool := newPool()
+	for marble := 1; marble <= last; marble++ {
 		if marble%23 != 0 {
+			current = pool.Get(marble, current.after, current.after.after)
+		} else {
+			current = current.before.before.before.before.before.before.before
+			playerScores[marble%players] += marble + current.val
+			pool.Put(current)
+			current.after.before = current.before
+			current.before.after = current.after
 			current = current.after
-			current = &node{val: marble, before: current, after: current.after}
-			current.before.after = current
-			current.after.before = current
-			continue
 		}
-		for i := 0; i < 7; i++ {
-			current = current.before
-		}
-		playerScores[player] += marble + current.val
-		current.after.before = current.before
-		current.before.after = current.after
-		current = current.after
 	}
 	max := 0
 	for _, val := range playerScores {
