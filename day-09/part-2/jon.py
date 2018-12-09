@@ -8,7 +8,7 @@ class JonSubmission(SubmissionPy):
         nbPlayers = int(words[0])
         nbMarbles = int(words[6]) * 100
 
-        n0 = Node(0, 0 ,0)
+        n0 = Node(0)
         n0.prev = n0
         n0.next = n0
 
@@ -34,7 +34,7 @@ class JonSubmission(SubmissionPy):
         return max(scores.values())
 
 class Node:
-    def __init__(self, value, prev, nnext):
+    def __init__(self, value, prevNode=None, nextNode=None):
         self.value = value
-        self.prev = prev
-        self.next = nnext
+        self.prev = prevNode
+        self.next = nextNode
