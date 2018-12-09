@@ -1,24 +1,4 @@
 from runners.python import SubmissionPy
-import sys
-
-sys.setrecursionlimit(15000)
-
-sum_metadata = 0
-def parse(nodes, index):
-    global sum_metadata
-    node = {'children': [], 'metadata': []}
-    node['num_children'] = nodes[index]
-    node['num_metadata'] = nodes[index+1]
-    index += 2
-    for _ in range(node['num_children']):
-        index, node = parse(nodes, index)
-        node['children'].append(node)
-
-    for i in range(node['num_metadata']):
-        node['metadata'].append(nodes[index + i])
-        sum_metadata += nodes[index+i]
-    index += node['num_metadata']
-    return index, node
 
 
 class DegemerSubmission(SubmissionPy):
@@ -27,7 +7,26 @@ class DegemerSubmission(SubmissionPy):
         # :return: solution flag
         # Your code goes here
         nodes = list(map(int, s.split(' ')))
-        print("NODES", len(nodes))
-        parsed = parse(nodes, 0)
-        global sum_metadata
-        return sum_metadata
+        stack = []
+        i = 0
+        sum_meta = 0
+        while i < len(nodes):
+            print("STACK", stack, i)
+            if len(stack) == 0:
+                children = int(nodes[i])
+                metas = int(nodes[i + 1])
+                i += 2
+                stack.append([children, metas])
+            elif stack[-1][0] == 0:
+                for j in range(stack[-1][1]):
+                    sum_meta += nodes[i+j]
+                i += stack[-1][1]
+                stack.pop()
+                if len(stack) > 0:
+                    stack[-1][0] -= 1
+            else:
+                children = int(nodes[i])
+                metas = int(nodes[i + 1])
+                stack.append([children, metas])
+                i += 2
+        return sum_meta
