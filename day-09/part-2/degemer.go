@@ -21,7 +21,6 @@ func run(s string) interface{} {
 	players, _ := strconv.Atoi(parsed[0])
 	last, _ := strconv.Atoi(parsed[len(parsed)-2])
 	last *= 100
-	fmt.Println(players, last)
 	marbles := &node{val: 0}
 	playerScores := make([]int, players)
 	current := marbles

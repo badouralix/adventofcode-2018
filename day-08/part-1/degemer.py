@@ -11,7 +11,6 @@ class DegemerSubmission(SubmissionPy):
         i = 0
         sum_meta = 0
         while i < len(nodes):
-            print("STACK", stack, i)
             if len(stack) == 0:
                 children = int(nodes[i])
                 metas = int(nodes[i + 1])

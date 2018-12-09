@@ -9,7 +9,6 @@ class DegemerSubmission(SubmissionPy):
         # Your code goes here
         players = int(s.split(' ')[0])
         last = int(s.split(' ')[-2])
-        print(players, last)
         marbles = [0]
         player_scores = [0] * players
         current = 0
