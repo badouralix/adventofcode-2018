@@ -52,7 +52,6 @@ func run(s string) interface{} {
 			culprit := current.prev.prev.prev.prev.prev.prev.prev
 			scores[player] += m + culprit.value
 			current = culprit.delete()
-
 		}
 
 		player = player + 1
