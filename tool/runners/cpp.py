@@ -12,7 +12,7 @@ class SubmissionCpp(SubmissionWrapper):
         SubmissionWrapper.__init__(self)
         tmp = tempfile.NamedTemporaryFile(prefix="aoc")
         tmp.close()
-        compile_output = subprocess.check_output(["g++", "-Wall", "-Wno-sign-compare", "-O3", "-std=c++14", "-o", tmp.name, file]).decode()
+        compile_output = subprocess.check_output(["g++", "-Wall", "-Wno-sign-compare", "-Ofast", "-std=c++14", "-o", tmp.name, file]).decode()
         if compile_output:
             raise CompilationError(compile_output)
         self.executable = tmp.name
