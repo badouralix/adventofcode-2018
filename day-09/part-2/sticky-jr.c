@@ -66,7 +66,7 @@ int main(int argc, char** argv) {
   }
 
   printf("_duration:%f\n", (float)(clock() - start) * 1000.0 / CLOCKS_PER_SEC);
-  printf("%d\n",maxscore);
+  printf("%u\n",maxscore);
 
   return 0;
 }
