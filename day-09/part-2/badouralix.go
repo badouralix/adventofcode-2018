@@ -55,7 +55,10 @@ func run(s string) interface{} {
 
 		}
 
-		player = (player + 1) % players
+		player = player + 1
+		if player >= players {
+			player = 0
+		}
 	}
 
 	for _, score := range scores {
