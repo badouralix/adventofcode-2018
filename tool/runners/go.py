@@ -32,7 +32,7 @@ class SubmissionGo(SubmissionWrapper):
 
     def exec(self, input):
         try:
-            p = Popen([self.executable], stdin=PIPE, stdout=PIPE)
+            p = Popen([self.executable], env=dict(os.environ, GOGC="off"), stdin=PIPE, stdout=PIPE)
             stdout, _ = p.communicate(input.encode())
             return stdout.decode()
         except OSError as e:
