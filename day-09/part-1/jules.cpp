@@ -13,7 +13,7 @@ class Node {
 };
 
 uint64_t run(const string& s) {
-    int players, points;
+    uint players, points;
     stringstream ss(s);
     ss >> players;
     ss.ignore(30);
@@ -24,7 +24,7 @@ uint64_t run(const string& s) {
     current->next = current;
     current->prev = current;
     vector<uint64_t> scores(players);
-    for(int i = 1; i <= points; i++){
+    for(uint i = 1; i <= points; i++){
         Node *new_node = new Node();
         new_node->value = i;
         if(i % 23 != 0){
@@ -44,7 +44,7 @@ uint64_t run(const string& s) {
         }
     }
     uint64_t max = 0;
-    for(int i = 0; i < scores.size(); i++){
+    for(uint i = 0; i < scores.size(); i++){
         if(scores.at(i) > max){
             max = scores.at(i);
         }

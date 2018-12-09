@@ -16,7 +16,7 @@ class JulesSubmission(SubmissionPy):
                 current %= len(marbles)
                 marbles.insert(current, i)
             else:
-                current = (current - 7 + len(marbles)) % len(marbles)
+                current = (current - 7) % len(marbles)
                 scores[i%players] += i + marbles[current]
                 marbles.remove(marbles[current])
         return max(scores)
