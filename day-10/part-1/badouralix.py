@@ -35,9 +35,9 @@ class BadouralixSubmission(SubmissionPy):
                 y.append(point.pos_y)
 
             if max(y) - min(y) <= self.HEIGHT:
-                return self.reader(points)
+                return self.pprint(points)
 
-    def reader(self, points):
+    def pprint(self, points):
         min_x = min(p.pos_x for p in points)
         min_y = min(p.pos_y for p in points)
 
@@ -45,12 +45,14 @@ class BadouralixSubmission(SubmissionPy):
         for p in points:
             img[p.pos_x - min_x][p.pos_y - min_y] = True
 
+        result = ""
+
         for i in range(self.HEIGHT):
             for j in range(self.WIDTH):
                 if img[j][i]:
-                    print("#", end='')
+                    result += "#"
                 else:
-                    print(".", end='')
-            print()
+                    result += "."
+            result += "\n"
 
-        return ""
+        return result
