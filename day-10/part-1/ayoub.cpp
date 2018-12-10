@@ -110,24 +110,16 @@ void advance(vector<Point> &points) {
     }
 }
 
-int max_dist_x(const vector<Point> &points) {
-    int max_dist = 0;
+bool within_rect(const vector<Point> &points, int width, int height) {
+    int min_x = INT_MAX, min_y = INT_MAX,
+        max_x = INT_MIN, max_y = INT_MIN;
     for (int i = 0; i < points.size(); i++) {
-        for (int j = 0; j < points.size(); j++) {
-            max_dist = max(max_dist, abs(points[i].x - points[j].x));
-        }
+        min_x = min(min_x, points[i].x);
+        min_y = min(min_y, points[i].y);
+        max_x = max(max_x, points[i].x);
+        max_y = max(max_y, points[i].y);
     }
-    return max_dist;
-}
-
-int max_dist_y(const vector<Point> &points) {
-    int max_dist = 0;
-    for (int i = 0; i < points.size(); i++) {
-        for (int j = 0; j < points.size(); j++) {
-            max_dist = max(max_dist, abs(points[i].y - points[j].y));
-        }
-    }
-    return max_dist;
+    return (max_x-min_x < width) && (max_y-min_y < height);
 }
 
 string run(string s) {
@@ -144,9 +136,7 @@ string run(string s) {
         points.push_back(p);
     }
 
-    while (max_dist_x(points) > FLAG_WIDTH || 
-           max_dist_y(points) > CHAR_HEIGHT)
-        advance(points);
+    while (!within_rect(points, FLAG_WIDTH, CHAR_HEIGHT)) advance(points);
 
     return read_flag(points);
 }
