@@ -11,7 +11,7 @@ int fuel(int x, int y, int serial) {
 }
 
 void run(char* s, int* x, int* y, int* size) {
-    int serial, i, j, di, dj, max, temp;
+    int serial, i, j, max, temp;
     max = 0;
     sscanf(s, "%d", &serial);
 
@@ -28,7 +28,7 @@ void run(char* s, int* x, int* y, int* size) {
                 if (temp > max) {
                     max = temp;
                     *x = i - s + 1;
-                    *y = j - s;
+                    *y = j - s + 1;
                     *size = s;
                 }
             }
