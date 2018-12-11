@@ -4,44 +4,40 @@
 
 using namespace std;
 
+int fuel(int x, int y, int serial)
+{
+    return (((x + 10) * y + serial) * (x + 10) / 100) % 10 - 5;
+}
+
 string run(string s)
 {
     int serial = stoi(s);
-    int grid[301][301];
+    int sa_table[301][301];
+    ;
     for (int x = 1; x <= 300; x++)
     {
         for (int y = 1; y <= 300; y++)
         {
-            int rack_id = x + 10;
-            grid[x][y] = (rack_id * y + serial) * rack_id;
-            grid[x][y] = (grid[x][y] % 1000 - grid[x][y] % 100) / 100;
-            grid[x][y] -= 5;
+            sa_table[x][y] = fuel(x, y, serial) + sa_table[x][y - 1] + sa_table[x - 1][y] - sa_table[x - 1][y - 1];
         }
     }
 
-    int maxi = numeric_limits<int>::min();
+    int maxi = INT32_MIN;
     int max_x;
     int max_y;
     int max_size;
     for (int size = 1; size <= 300; size++)
     {
-        for (int x = 1; x < 302 - size; x++)
+        for (int x = 0; x <= 300 - size; x++)
         {
-            for (int y = 1; y < 302 - size; y++)
+            for (int y = 0; y <= 300 - size; y++)
             {
-                int total = 0;
-                for (int i = x; i < x + size; i++)
-                {
-                    for (int j = y; j < y + size; j++)
-                    {
-                        total += grid[i][j];
-                    }
-                }
+                int total = sa_table[x][y] + sa_table[x + size][y + size] - sa_table[x + size][y] - sa_table[x][y + size];
                 if (total > maxi)
                 {
                     maxi = total;
-                    max_x = x;
-                    max_y = y;
+                    max_x = x + 1;
+                    max_y = y + 1;
                     max_size = size;
                 }
             }
