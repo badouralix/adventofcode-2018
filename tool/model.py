@@ -16,6 +16,9 @@ class Problem(object):
         self.day = day
         self.part = part
 
+    def __repr__(self):
+        return "Problem{day-%02d, part-%d}" % (self.day, self.part)
+
     def day_path(self):
         return Problem.day_to_path(self.day)
 
@@ -31,6 +34,9 @@ class Submission(object):
         self.content = content
         self.runnable = load_submission_runnable(self.path(), language)
 
+    def __repr__(self):
+        return "Submission{%s, by %s, in %s}" % (self.problem, self.author, self.language)
+
     def path(self):
         return os.path.join(self.problem.path(), "%s%s" % (self.author, ext_by_language(self.language)))
 
@@ -40,6 +46,9 @@ class Input(object):
         self.problem = problem
         self.author = author
         self.content = content
+
+    def __repr__(self):
+        return "Input{%s, by %s, size %d}" % (self.problem, self.author, len(self.content))
 
     def path(self):
         return os.path.join(self.problem.day_path(), "input", self.author + ".txt")
@@ -52,3 +61,6 @@ class Result(object):
         self.input = input
         self.answer = answer
         self.duration = duration
+
+    def __repr__(self):
+        return "Result{%s, %s, %s, %s}" % (self.problem, self.submission, self.input, self.answer)

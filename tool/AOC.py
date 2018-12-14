@@ -44,12 +44,12 @@ aoc commands are:
         parser.add_argument("-p", "--part", help="problem part", action="append")
         parser.add_argument("-a", "--author", help="restrict to author", action="append")
         parser.add_argument("-i", "--ignore-author", help="ignore author", action="append")
-        parser.add_argument("-r", "--restricted", help="run each submission on it's own input only", action="store_true", default=False)
+        parser.add_argument("-r", "--restricted", help="run each submission on its own input only", action="store_true", default=False)
+        parser.add_argument("-e", "--expand", help="prints non-aggregated results on all inputs", action="store_true", default=False)
         parser.add_argument("-l", "--language", help="submission language", action="append", choices=SUPPORTED_LANGUAGES)
         parser.add_argument("-f", "--force", help="force running submissions even if language is not supported", action="store_true", default=False)
         parser.add_argument("-s", "--silent", help="disable debug mode", action="store_true", default=False)
         parser.add_argument("--all", help="runs all submissions of all days all parts", action="store_true", default=False)
-        parser.add_argument("--expand", help="prints non-aggregated results on all inputs", action="store_true", default=False)
 
         args = parser.parse_args(argv)
 
