@@ -13,23 +13,27 @@ def run(s)
     free.push k if v.size == 0
   end
 
-  # The time is incremented by 1 tick at the beginning, tasks start at t=0
-  time = -1
+  time = 0
   processed = 0
   while processed < reqs.size
     # Make on simulation turn
-    time += 1
-    remaining = remaining.map {|i| i-1}
+    interval = remaining.reject {|v| v <= 0 }.min || 0
+    time += interval
+    remaining = remaining.map {|i| i-interval}
+    # Free tasks that can now be completed
     remaining.each_with_index do |t, i|
       next if t > 0
-      # Else, give him another task!
       step = tasks[i]
       reqs.each_key do |k|
         next unless reqs[k].include? step
         reqs[k].delete step
         free.push k if reqs[k].size == 0
       end unless step == nil
-      free.sort!
+    end
+    free.sort!
+    # Give tasks to idle workers now
+    remaining.each_with_index do |t, i|
+      next if t > 0
       step = free.shift
       if step != nil
         tasks[i] = step
@@ -38,8 +42,7 @@ def run(s)
       end
     end
   end
-  time += remaining.max
-  time
+  time + remaining.max
 end
 
 starting = Process.clock_gettime(Process::CLOCK_MONOTONIC)
