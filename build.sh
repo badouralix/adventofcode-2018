@@ -14,4 +14,5 @@ export PYENV_VERSION=3.7
 
 npm install
 pip install --user -r requirements.txt
-git --no-pager diff --name-only origin/master | grep "day-" | cut -d "/" -f1 | cut -d "-" -f2 | sort | uniq | xargs -I{} ./aoc run -fd {}
+git fetch master
+git --no-pager diff --name-only master | grep "day-" | cut -d "/" -f1 | cut -d "-" -f2 | sort | uniq | xargs -I{} ./aoc run -fd {}
