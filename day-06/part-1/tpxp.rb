@@ -24,8 +24,8 @@ def run(s)
       map[x][y] = res
       next if res == '.'
       sizes[res]+= 1 if sizes[res] != nil
-      sizes[res] = nil if [0, map.size].include? x
-      sizes[res] = nil if [0, map[x].size].include? y
+      sizes[res] = nil if [0, map.size - 1].include? x
+      sizes[res] = nil if [0, map[x].size - 1].include? y
     end
   end
   sizes.compact.max
