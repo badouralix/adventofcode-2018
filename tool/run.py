@@ -50,6 +50,10 @@ def run(days, parts, authors, ignored_authors, languages, force, silent, all_day
                 except DifferentAnswersException as e:
                     errors.append(
                         "{}ERROR: {}{}".format(BColor.RED, e, BColor.ENDC))
+
+        for submission in submissions:
+            submission.runnable.cleanup()
+
         pbar.close()
         if restricted:
             print_restrict_results(problem, results_by_author)
@@ -152,7 +156,7 @@ def print_aggregated_results(problem, results_by_author):
             count_by_language[result_language] += 1
             # New language: make the virtual result
             if result_language not in res_by_language:
-                res = Result(problem, Submission(problem, author, result_language), None, "-", 0)
+                res = Result(problem, Submission(problem, author, result_language, init_runnable=False), None, "-", 0)
                 res_by_language[result_language] = res
             # The author is on his own input, get his answer (split to allow author.x.lang on input author.txt)
             if author.split('.')[0] == result.input.author:

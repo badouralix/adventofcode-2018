@@ -27,12 +27,12 @@ class Problem(object):
 
 
 class Submission(object):
-    def __init__(self, problem, author, language, content=None):
+    def __init__(self, problem, author, language, content=None, init_runnable=True):
         self.problem = problem
         self.author = author
         self.language = language
         self.content = content
-        self.runnable = load_submission_runnable(self.path(), language)
+        self.runnable = load_submission_runnable(self.path(), language) if init_runnable else None
 
     def __repr__(self):
         return "Submission{%s, by %s, in %s}" % (self.problem, self.author, self.language)
