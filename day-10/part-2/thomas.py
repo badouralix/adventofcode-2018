@@ -4,6 +4,8 @@ import numpy as np
 
 
 class ThomasSubmission(SubmissionPy):
+    HEIGHT = 10
+
     def run(self, s):
         lines = s.splitlines()
         pattern = re.compile(r"< *(-?\d+), +(-?\d+)>.*< *(-?\d+), +(-?\d+)>")
@@ -22,19 +24,22 @@ class ThomasSubmission(SubmissionPy):
             time += 1
             points += speeds
 
-            if np.amax(points) < 300:
-                data = np.zeros(np.amax(points, axis=0) + 1)
-                for x, y in points:
-                    data[x, y] = 1
+            if np.amax(points[:, 1]) - np.amin(points[:, 1]) <= self.HEIGHT:
+                return time
 
-                data = data.T
-                for i in range(data.shape[0]):
-                    for j in range(data.shape[1]):
-                        if data[i, j]:
-                            print("#", end="")
-                        else:
-                            print(".", end="")
-                    print()
-                print("**********", time, "s **********\n")
-                input("Press Enter to continue...")
+            # if np.amax(points) < 300:
+            #     data = np.zeros(np.amax(points, axis=0) + 1)
+            #     for x, y in points:
+            #         data[x, y] = 1
+
+            #     data = data.T
+            #     for i in range(data.shape[0]):
+            #         for j in range(data.shape[1]):
+            #             if data[i, j]:
+            #                 print("#", end="")
+            #             else:
+            #                 print(".", end="")
+            #         print()
+            #     print("**********", time, "s **********\n")
+            #     input("Press Enter to continue...")
 
