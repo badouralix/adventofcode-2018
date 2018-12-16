@@ -1,4 +1,4 @@
-from runners.python import SubmissionPy
+from tool.runners.python import SubmissionPy
 import numpy as np
 
 class SilvestreSubmission(SubmissionPy):

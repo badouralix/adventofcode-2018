@@ -28,22 +28,32 @@ fn run(input: &str, total: usize) -> usize {
         // update min & max coordinates
         if x < min_x {
             min_x = x;
-        } else if x + 1 > max_x {
+        }
+        if x + 1 > max_x {
             max_x = x + 1;
         }
         if y < min_y {
             min_y = y;
-        } else if y + 1 > max_y {
+        }
+        if y + 1 > max_y {
             max_y = y + 1;
         }
     }
 
+    let points_close = is_close(&points[1..], points[0].0, points[0].0, total);
+    if points_close.0 {
+        // extend the grid
+        let extend_size = ((total-points_close.1)/points.len() )as isize;
+        min_x -= extend_size;
+        min_y -= extend_size;
+        max_x += extend_size;
+        max_y += extend_size;
+    }
     // Iterate over the grid to count the size of the domains
-    // when the domain's index is not in the infinite_indexes set
     let mut max_domain_size = 0;
     for x in min_x..max_x {
         for y in min_y..max_y {
-            if is_close(&points, x, y, total) {
+            if is_close(&points, x, y, total).0 {
                 max_domain_size += 1;
             }
         }
@@ -52,7 +62,7 @@ fn run(input: &str, total: usize) -> usize {
     max_domain_size
 }
 
-fn is_close(points: &[(usize, usize)], x: usize, y: usize, total: usize) -> bool {
+fn is_close(points: &[(isize, isize)], x: isize, y: isize, total: usize) -> (bool, usize) {
     let mut res = 0;
     let mut points_iter = points.iter();
     let mut point = points_iter.next();
@@ -61,10 +71,10 @@ fn is_close(points: &[(usize, usize)], x: usize, y: usize, total: usize) -> bool
         res += taxicab(x, y, *x1, *y1);
         point = points_iter.next();
     }
-    res < total
+    (res < total, res)
 }
 
-fn taxicab(x1: usize, y1: usize, x2: usize, y2: usize) -> usize {
+fn taxicab(x1: isize, y1: isize, x2: isize, y2: isize) -> usize {
     (x1 as isize - x2 as isize).abs() as usize + (y1 as isize - y2 as isize).abs() as usize
 }
 
@@ -81,7 +91,9 @@ mod tests {
 8, 3
 3, 4
 5, 5
-8, 9", 32),
+8, 9",
+                32
+            ),
             16
         )
     }

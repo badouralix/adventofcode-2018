@@ -1,0 +1,6 @@
+#!/usr/bin/env python3
+
+from tool.AOC import AOC
+
+if __name__ == '__main__':
+    AOC()

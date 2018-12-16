@@ -1,4 +1,4 @@
-from runners.python import SubmissionPy
+from tool.runners.python import SubmissionPy
 class RonanSubmission(SubmissionPy):
     @staticmethod
     def run(input):
