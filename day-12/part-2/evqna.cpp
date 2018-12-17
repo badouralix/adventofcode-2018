@@ -7,8 +7,10 @@
 using namespace std;
 
 const long long ITER = 50000000000LL;
-const int STATE_SIZE = 2200;
+// Bunch of heuristics to reduce problem space
+const int STATE_SIZE = 2200;    // Should be large enough to hold all simulated vectors
 const int OFFSET = 1050;
+const int TAU = 3;              // How many equal deltas do we need to see before we assume problem is stationary
 
 struct State {
     string buf;
@@ -23,8 +25,7 @@ struct State {
 
     int value() const {
         int total = 0;
-        // for (int i = min; i < max; i++) {
-        for (int i = 0; i < buf.length(); i++) {
+        for (int i = min; i < max; i++) {
             if (buf[i] == '#')
                 total += i - OFFSET;
         }
@@ -32,10 +33,9 @@ struct State {
     }
 
     void update() {
-        // Assume the region grows by one in both directions
-        string window = buf.substr(0, 5);
-        for (int i = 2; i < buf.length() - 2; i++) {
-            // string window = buf.substr(i - 2, 5);
+        // Assume the region grows by at most one in both directions
+        string window = buf.substr(min-3, 5);
+        for (int i = min-1; i <= max+1; i++) {
             if (generators.find(window) != generators.end()) {
                 buf[i] = '#';
             } else {
@@ -43,8 +43,9 @@ struct State {
             }
             window = window.substr(1) + buf[i + 3];
         }
-        min -= 1;
-        max += 1;
+
+        min--;
+        max++;
     }
 };
 
@@ -67,16 +68,29 @@ State parse(const string& in) {
 long long run(const string& s) {
     auto state = parse(s);
     
-    // Compute 1000 iterations and assume all subsequent ones differ by a constant delta
-    for (int iter = 1; iter <= 1000; iter++) {
+    int prevValue = state.value();
+    int prevDelta = prevValue;
+    // Break early as soon as we see n identical delta in a row (heuristic)
+    int counter = TAU;
+
+    for (int iter = 1; iter <= ITER; iter++) {
         state.update();
+        int delta = state.value() - prevValue;
+        
+        if (delta == prevDelta) {
+            counter--;
+            // Assume all next deltas will be identical
+            if (counter == 0)
+                return state.value() + (ITER - iter) * delta;
+        } else {
+            counter = TAU;
+        }
+
+        prevValue = state.value();
+        prevDelta = delta;
     }
 
-    int prevValue = state.value();
-    state.update();
-    int delta = state.value() - prevValue;
-
-    return prevValue + (ITER - 1000) * delta;
+    return 0;
 }
 
 int main(int argc, char** argv) {
