@@ -36,7 +36,6 @@ inline std::string run(std::string input) {
       }
     }
   }
-
   // Caution: the grid is 1-indexed
   return std::to_string(i_max + 1) + ',' + std::to_string(j_max + 1);
 }
