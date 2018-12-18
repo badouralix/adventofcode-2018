@@ -11,7 +11,7 @@ from tool.config import CONFIG
 from tool.utils import mkdirp
 
 
-TEMPALTES_PATH = os.path.join("tool", "templates")
+TEMPLATES_PATH = os.path.join("tool", "templates")
 
 
 class FileNotEmptyException(Exception):
@@ -45,9 +45,9 @@ def create_submission(author, path, language):
     if language == 'py':
         # Create a dedicated class with the author name
         class_name = ''.join(x for x in f"{author} submission".title() if not x.isspace())
-        submission_content = open(os.path.join(TEMPALTES_PATH, "template.py")).read().format(class_name=class_name)
+        submission_content = open(os.path.join(TEMPLATES_PATH, "template.py")).read().format(class_name=class_name)
     else:
-        submission_content = open(os.path.join(TEMPALTES_PATH, f"template.{language}")).read()
+        submission_content = open(os.path.join(TEMPLATES_PATH, f"template.{language}")).read()
 
     # Write template to submission file if it is empty
     if os.path.exists(submission_file):
@@ -64,7 +64,7 @@ def create_submission(author, path, language):
         cargo = open(os.path.join("Cargo.toml"), "a")
         cargo.write(f"\n[[bin]]\nname = \"{submission_name}\"\npath = \"{submission_file}\"\n")
         print("[+] added submission to Cargo.toml")
-    
+
     # Create a symlink to workspace if it is a Golang project
     if language == "go":
         workspace_directory = os.path.join("./workspace", os.path.normpath(path))
