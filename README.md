@@ -6,7 +6,7 @@
   🎄🎄🎄  
  🎄🎄🎄🎄  
 🎄🎄🎄🎄🎄  
-  🎁🎁🎁  
+  🎁🎁🎁
 
 These are proposed solutions for the [Advent of Code 2018](http://adventofcode.com/2018).
 
@@ -29,13 +29,13 @@ aoc commands are:
 
 ### Examples
 
-**Run last problem**
+#### Run last problem
 
-```
+```shell
 ./aoc run
 ```
 
-```
+```shell
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Running submissions for day 04:
 
@@ -56,13 +56,13 @@ tpxp           41668      133.63 ms  rb
 ----------  ----------  -----------  ---
 ```
 
-**Run specific problems from specific users**
+#### Run specific problems from specific users
 
-```
+```shell
 ./aoc run -d 1 -d 2 -p 1 -a ayoub -a david
 ```
 
-```
+```shell
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Running submissions for day 01:
 
@@ -112,6 +112,7 @@ optional arguments:
 ```
 
 you can also use `./aoc config` to setup your local profile
+
 ```text
 usage: aoc config [-h] username {c,cpp,go,js,py,rb,rs,sh}
 
