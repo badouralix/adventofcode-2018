@@ -37,7 +37,6 @@ def language_by_ext(x):
 
 
 def load_submission_runnable(path, language):
-    submission_module = None
     if language not in LANGUAGES:
         return None
     if language == 'py':

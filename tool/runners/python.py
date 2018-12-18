@@ -21,3 +21,6 @@ class SubmissionPy:
 
     def get_debug_stack(self):
         return self.debug_stack
+
+    def cleanup(self):
+        pass
