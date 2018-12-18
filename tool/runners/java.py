@@ -16,14 +16,14 @@ class SubmissionJava(SubmissionWrapper):
         compile_output = subprocess.check_output(["javac", file, "-d", self.temporary_directory]).decode()
         if compile_output:
             raise CompilationError(compile_output)
-        self.executable = file.split("/")[-1].replace(".java", "").capitalize()
 
     def language(self):
         return 'java'
 
     def exec(self, input):
         try:
-            return subprocess.check_output(["java", "-cp", self.temporary_directory, self.executable, input]).decode()
+            # main class MUST be named Solution
+            return subprocess.check_output(["java", "-cp", self.temporary_directory, "Solution", input]).decode()
         except OSError as e:
             if e.errno == errno.ENOENT:
                 # executable not found
