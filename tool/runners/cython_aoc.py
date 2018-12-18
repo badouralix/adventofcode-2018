@@ -3,15 +3,16 @@ import subprocess
 import shutil
 import importlib
 
-from tool.utils import resolve_path
+from tool.utils import BColor, resolve_path
 from tool.runners.python import SubmissionPy
-from tool.runners.exceptions import CompilationError
+from tool.runners.exceptions import RuntimeError
 
 
 class SubmissionPyx(SubmissionPy):
 
     def __init__(self, file):
         SubmissionPy.__init__(self)
+        self.module = None
 
         setup_path = resolve_path("tool", "runners", "cython_aoc-setup.py")
         script_name = os.path.basename(file)
@@ -27,8 +28,9 @@ class SubmissionPyx(SubmissionPy):
         try:
             cmd = "cd %s && python %s build_ext --inplace %s %s" % (build_dir, setup_path, script_name_escaped, build_dir)
             subprocess.check_output(cmd, shell=True).decode()
-        except subprocess.CalledProcessError as e:
-            raise CompilationError(e.output)
+        except Exception:
+            print(BColor.RED + "Could not compile cython %s" % script_name + BColor.ENDC)
+            return
 
         rel_script_path = os.path.join(build_dir_relative, script_name_escaped)
         module_name = ".".join(os.path.normpath(os.path.splitext(rel_script_path)[0]).split(os.sep))
@@ -38,7 +40,12 @@ class SubmissionPyx(SubmissionPy):
         return 'pyx'
 
     def run(self, input):
-        return self.module.run(input)
+        if self.module is None:
+            return "-"
+        try:
+            return self.module.run(input)
+        except Exception as e:
+            raise RuntimeError(e)
 
     def cleanup(self):
         try:
