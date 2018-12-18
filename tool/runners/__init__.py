@@ -8,6 +8,7 @@ from tool.runners.bash import SubmissionBash
 from tool.runners.c import SubmissionC
 from tool.runners.cpp import SubmissionCpp
 from tool.runners.go import SubmissionGo
+from tool.runners.java import SubmissionJava
 from tool.runners.js import SubmissionJs
 from tool.runners.python import SubmissionPy
 from tool.runners.ruby import SubmissionRb
@@ -19,6 +20,7 @@ TOOL_BY_LANGUAGE = {
     'c': 'gcc',
     'cpp': 'g++',
     'go': 'go',
+    'java': 'java',
     'js': 'node',
     'py': 'python',
     'rb': 'ruby',
@@ -52,6 +54,8 @@ def load_submission_runnable(path, language):
         return SubmissionCpp(path)
     elif language == 'go':
         return SubmissionGo(path)
+    elif language == 'java':
+        return SubmissionJava(path)
     elif language == 'js':
         return SubmissionJs(path)
     elif language == 'rb':
