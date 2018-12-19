@@ -122,15 +122,15 @@ def get_submissions(problem, authors=None, ignored_authors=None, languages=None,
     for _, _, files in walk(problem.path()):
         for filename in files:
             submission, ext = os.path.splitext(filename)
-            basename = os.path.basename(submission)
-            if (ext not in extensions) or basename.endswith('_test.go'):
+            author = os.path.basename(submission)
+            if (ext not in extensions) or filename.endswith('_test.go'):
                 continue
-            author = basename.split('.')[0]
             if ignored_authors and author in ignored_authors:
                 continue
             if authors and author not in authors:
                 continue
             submissions.append(Submission(problem, author, language_by_ext(ext)))
+        break  # stop at depth 1
     return submissions
 
 
@@ -141,7 +141,7 @@ def get_inputs(problem):
 
     inputs = []
     for input_file in glob.glob(os.path.join(inputs_path, '*.txt')):
-        author = os.path.basename(input_file).split('.')[0].lower()
+        author = os.path.splitext(os.path.basename(input_file))[0].lower()
         with open(input_file, 'r') as content_file:
             inputs.append(Input(problem, author, content_file.read().rstrip()))
     return inputs

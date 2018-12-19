@@ -3,6 +3,7 @@
 .idea/
 node_modules/
 .venv
+venv
 .vscode
 target/
 *.rs.bk

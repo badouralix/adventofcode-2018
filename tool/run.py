@@ -31,24 +31,29 @@ def run(days, parts, authors, ignored_authors, languages, force, silent, all_day
         submissions = discovery.get_submissions(problem, authors, ignored_authors, languages, force)
         inputs = discovery.get_inputs(problem)
 
-        results_by_author = defaultdict(dict)
-        results_by_input = defaultdict(dict)
+        results_by_author = defaultdict(list)
+        results_by_input = defaultdict(list)
 
         pbar = tqdm(total=len(inputs)*len(submissions))
         for input in inputs:
             previous = None
             for submission in submissions:
                 pbar.update(1)
-                if restricted and input.author != submission.author:
+                # The split allows having author.lang and author.x.lang files, on the same input
+                if restricted and input.author != submission.author.split('.')[0]:
                     continue
                 try:
                     result = run_submission(problem, submission, input, previous)
-                    results_by_author[submission.author][input.author] = result
-                    results_by_input[input.author][submission.author] = result
+                    results_by_author[submission.author].append(result)
+                    results_by_input[input.author].append(result)
                     previous = result
                 except DifferentAnswersException as e:
                     errors.append(
                         "{}ERROR: {}{}".format(BColor.RED, e, BColor.ENDC))
+
+        for submission in submissions:
+            submission.runnable.cleanup()
+
         pbar.close()
         if restricted:
             print_restrict_results(problem, results_by_author)
@@ -120,7 +125,7 @@ def print_expanded_results(problem, results_by_input):
             author=input_author))
         print("---------------------------------------------------")
         results = []
-        for author, result in submission_results.items():
+        for result in submission_results:
             results.append(result)
         print_results(results)
 
@@ -131,7 +136,8 @@ def print_restrict_results(problem, results_by_author):
     print("---------------------------------------------------")
     results = []
     for author, results_by_input in results_by_author.items():
-        results.append(results_by_input[author])
+        for result in results_by_input:
+            results.append(result)
     print_results(results)
 
 
@@ -140,19 +146,30 @@ def print_aggregated_results(problem, results_by_author):
     print("Avg over all inputs")
     print("---------------------------------------------------")
     results = []
+    # Loop for all authors, get all the results they produced
     for author, results_by_input in results_by_author.items():
-        res = Result(problem, Submission(problem, author, None), None, "-", 0)
-        for input_author, result in results_by_input.items():
-            res.duration += result.duration
-            if res.submission.language is None:
-                res.submission.language = result.submission.language
-            if author == input_author:
-                res.answer = result.answer
-                res.input = result.input
-                res.submission = result.submission
-        if len(results_by_input) > 0:
-            res.duration /= len(results_by_input)
-        results.append(res)
+        res_by_language = {}
+        count_by_language = defaultdict(int)
+        # The results can be made by different languages. Make a virtual result (storing total duration) by language
+        for result in results_by_input:
+            result_language = result.submission.language
+            count_by_language[result_language] += 1
+            # New language: make the virtual result
+            if result_language not in res_by_language:
+                res = Result(problem, Submission(problem, author, result_language, init_runnable=False), None, "-", 0)
+                res_by_language[result_language] = res
+            # The author is on his own input, get his answer (split to allow author.x.lang on input author.txt)
+            if author.split('.')[0] == result.input.author:
+                res_by_language[result_language].answer = result.answer
+                res_by_language[result_language].input = result.input
+                res_by_language[result_language].submission = result.submission
+            # Add up the duration of this result
+            res_by_language[result_language].duration += result.duration
+        # For each language of the author, make the average and store the final result
+        for lang, res in res_by_language.items():
+            if count_by_language[lang] > 0:
+                res.duration /= count_by_language[lang]
+            results.append(res)
     print_results(results)
 
 

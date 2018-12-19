@@ -9,6 +9,7 @@ from tool.runners.c import SubmissionC
 from tool.runners.cpp import SubmissionCpp
 from tool.runners.go import SubmissionGo
 from tool.runners.js import SubmissionJs
+from tool.runners.cython_aoc import SubmissionPyx
 from tool.runners.python import SubmissionPy
 from tool.runners.ruby import SubmissionRb
 from tool.runners.rust import SubmissionRs
@@ -21,6 +22,7 @@ TOOL_BY_LANGUAGE = {
     'go': 'go',
     'js': 'node',
     'py': 'python',
+    'pyx': 'cython',
     'rb': 'ruby',
     'rs': 'cargo',
     'sh': 'bash',
@@ -37,7 +39,6 @@ def language_by_ext(x):
 
 
 def load_submission_runnable(path, language):
-    submission_module = None
     if language not in LANGUAGES:
         return None
     if language == 'py':
@@ -46,6 +47,8 @@ def load_submission_runnable(path, language):
         for _, cls_submission in classes:
             if issubclass(cls_submission, SubmissionPy) and cls_submission not in (SubmissionPy, SubmissionWrapper):
                 return cls_submission()
+    elif language == 'pyx':
+        return SubmissionPyx(path)
     elif language == 'c':
         return SubmissionC(path)
     elif language == 'cpp':
