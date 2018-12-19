@@ -6,7 +6,7 @@
   🎄🎄🎄  
  🎄🎄🎄🎄  
 🎄🎄🎄🎄🎄  
-  🎁🎁🎁  
+  🎁🎁🎁
 
 These are proposed solutions for the [Advent of Code 2018](http://adventofcode.com/2018).
 
@@ -29,13 +29,13 @@ aoc commands are:
 
 ### Examples
 
-**Run last problem**
+#### Run last problem
 
-```
+```shell
 ./aoc run
 ```
 
-```
+```shell
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Running submissions for day 04:
 
@@ -56,13 +56,13 @@ tpxp           41668      133.63 ms  rb
 ----------  ----------  -----------  ---
 ```
 
-**Run specific problems from specific users**
+#### Run specific problems from specific users
 
-```
+```shell
 ./aoc run -d 1 -d 2 -p 1 -a ayoub -a david
 ```
 
-```
+```shell
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Running submissions for day 01:
 
@@ -92,13 +92,13 @@ see `./aoc run -h` for full arguments description.
 
 ## Contribute
 
-For now we support `c`, `c++`, `javascript`, `go`, `python 3`, `ruby`, `rust (stable)` and `bash` scripts.
+For now we support `c`, `c++`, `java`, `javascript`, `go`, `python 3`, `ruby`, `rust (stable)` and `bash` scripts.
 
 You can use `./aoc create` tool to create a new empty submission:
 
 ```text
 usage: aoc create [-h] [-a AUTHOR] [-d DAY] [-p PART]
-                  [-l {c,cpp,go,js,py,rb,rs,sh}]
+                  [-l {c,cpp,go,java,js,py,rb,rs,sh}]
 
 Create a new submission
 
@@ -107,19 +107,20 @@ optional arguments:
                         submission author
   -d DAY, --day DAY     problem day
   -p PART, --part PART  problem part
-  -l {c,cpp,go,js,py,rb,rs,sh}, --language {c,cpp,go,js,py,rb,rs,sh}
+  -l {c,cpp,go,js,py,rb,rs,sh}, --language {c,cpp,go,java,js,py,rb,rs,sh}
                         submission language
 ```
 
 you can also use `./aoc config` to setup your local profile
+
 ```text
-usage: aoc config [-h] username {c,cpp,go,js,py,rb,rs,sh}
+usage: aoc config [-h] username {c,cpp,go,java,js,py,rb,rs,sh}
 
 Configures user parameters
 
 positional arguments:
   username              prefered username
-  {c,cpp,go,js,py,rb,rs,sh}
+  {c,cpp,go,java,js,py,rb,rs,sh}
                         prefered programming language
 ```
 
