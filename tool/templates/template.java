@@ -1,7 +1,3 @@
-import java.util.Dictionary;
-import java.util.Hashtable;
-import java.util.List;
-
 class Solution {
     // BEWARE: your main class MUST be named Solution
 
