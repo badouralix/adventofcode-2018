@@ -34,7 +34,7 @@ def run(days, parts, authors, ignored_authors, languages, force, silent, all_day
         results_by_author = defaultdict(list)
         results_by_input = defaultdict(list)
 
-        pbar = tqdm(total=len(inputs)*len(submissions))
+        pbar = tqdm(total=len(inputs)*len(submissions) if not restricted else len(submissions))
         for input in inputs:
             previous = None
             for submission in submissions:
