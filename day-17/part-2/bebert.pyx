@@ -1,5 +1,4 @@
-# def export_grid(grid, count=None):
-#     grid_w = 2000
+# def export_grid(grid, grid_w, count=None):
 #     with open("tmp_bebert.txt.save", "w") as f:
 #         for i in range(0, len(grid), grid_w):
 #             line = "".join("x#~.|+O"[x] for x in grid[i:i+grid_w]) + "\n"
@@ -56,10 +55,10 @@ cpdef int run(s):
     stack[0] = 500
 
     grid[500] = 4
+
     cdef int current, right, left
     cdef bint right_blocked, left_blocked
 
-    cdef int count = 0
     while stack_cur >= 0:
         current = stack[stack_cur]
         if grid[current] == 0:
@@ -70,8 +69,6 @@ cpdef int run(s):
             continue
 
         while grid[current + grid_w] == 3:
-            if grid[current] == 3 and current > min_y * grid_w:
-                count += 1
             grid[current] = 4
             current = current + grid_w
             if current >= (max_y + 1) * grid_w:
@@ -81,16 +78,12 @@ cpdef int run(s):
             stack[stack_cur] = current
         stack_cur -= 1
         if grid[current + grid_w] == 0 or grid[current + grid_w] == 4:
-            if grid[current] == 3:
-                count += 1
             grid[current] = 4
             continue
 
         right_blocked = False
         right = current
         while grid[right + grid_w] == 1 or grid[right + grid_w] == 2:
-            if grid[right] == 3:
-                count += 1
             grid[right] = 4
             if grid[right + 1] == 1:
                 right_blocked = True
@@ -100,8 +93,6 @@ cpdef int run(s):
         left_blocked = False
         left = current
         while grid[left + grid_w] == 1 or grid[left + grid_w] == 2:
-            if grid[left] == 3:
-                count += 1
             grid[left] = 4
             if grid[left - 1] == 1:
                 left_blocked = True
@@ -110,32 +101,24 @@ cpdef int run(s):
 
         if right_blocked and left_blocked:
             for x in range(left, right + 1):
-                if grid[x] == 3:
-                    count += 1
                 grid[x] = 2
 
         if not left_blocked:
-            if grid[left] == 3:
-                count += 1
             grid[left] = 4
             stack_cur += 1
             stack[stack_cur] = left
 
         if not right_blocked:
-            if grid[right] == 3:
-                count += 1
             grid[right] = 4
             stack_cur += 1
             stack[stack_cur] = right
 
     # grid[current] = 6
-    # export_grid(grid, count=count)
+    # export_grid(grid, grid_w, count=s[:50])
 
-    # cdef int count2 = 0
-    # for k in range(min_y * grid_w, (max_y + 1) * grid_w):
-    #     if grid[k] == 2 or grid[k] == 4:
-    #         count2 += 1
-    #
-    # print(count, count2)
+    cdef int count = 0
+    for k in range(min_y * grid_w, min(grid_h, (max_y + 1)) * grid_w):
+        if grid[k] == 2:
+            count += 1
 
     return count
