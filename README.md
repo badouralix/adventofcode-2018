@@ -92,13 +92,13 @@ see `./aoc run -h` for full arguments description.
 
 ## Contribute
 
-For now we support `c`, `c++`, `java`, `javascript`, `go`, `python 3`, `ruby`, `rust (stable)` and `bash` scripts.
+For now we support `c`, `c++`, `java`, `javascript`, `go`, `python 3` (+ `cython`), `ruby`, `rust (stable)` and `bash` scripts.
 
 You can use `./aoc create` tool to create a new empty submission:
 
 ```text
 usage: aoc create [-h] [-a AUTHOR] [-d DAY] [-p PART]
-                  [-l {c,cpp,go,java,js,py,rb,rs,sh}]
+                  [-l {c,cpp,go,java,js,py,pyx,rb,rs,sh}]
 
 Create a new submission
 
@@ -107,20 +107,20 @@ optional arguments:
                         submission author
   -d DAY, --day DAY     problem day
   -p PART, --part PART  problem part
-  -l {c,cpp,go,js,py,rb,rs,sh}, --language {c,cpp,go,java,js,py,rb,rs,sh}
+  -l {c,cpp,go,java,js,py,pyx,rb,rs,sh}, --language {c,cpp,go,java,js,py,pyx,rb,rs,sh}
                         submission language
 ```
 
 you can also use `./aoc config` to setup your local profile
 
 ```text
-usage: aoc config [-h] username {c,cpp,go,java,js,py,rb,rs,sh}
+usage: aoc config [-h] username {c,cpp,go,java,js,py,pyx,rb,rs,sh}
 
 Configures user parameters
 
 positional arguments:
   username              prefered username
-  {c,cpp,go,java,js,py,rb,rs,sh}
+  {c,cpp,go,java,js,py,pyx,rb,rs,sh}
                         prefered programming language
 ```
 
@@ -143,6 +143,7 @@ class MyAwesomeSubmission(SubmissionPy):
     def run(self, s):
         # :param s: input in string format
         # :return: solution flag
+        pass
 ```
 
 You can add other functions & modules if you need to. Any external dependency should be added to `requirements.txt`.
