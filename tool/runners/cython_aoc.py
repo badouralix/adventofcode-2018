@@ -45,6 +45,7 @@ class SubmissionPyx(SubmissionPy):
         try:
             return self.module.run(input)
         except Exception as e:
+            print(BColor.RED + "Could not run cython %s" % e + BColor.ENDC)
             raise RuntimeError(e)
 
     def cleanup(self):
