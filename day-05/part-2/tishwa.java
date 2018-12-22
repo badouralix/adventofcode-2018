@@ -9,9 +9,19 @@ class Solution {
 		 * @input a string of random letters with random capitalization
 		 * @return length of the corresponding polymer once reacted
 		 */
-        Polymer polymer = new Polymer(input);
-        polymer.reactAll();
-        return Integer.toString(polymer.units.size());
+        char[] alphabet = {'a', 'b', 'c', 'd', 'e' ,'f', 'g', 'h', 'i', 'j', 'k',
+				'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'x'};
+        int bestLength = Integer.MAX_VALUE;
+        for (char letter : alphabet) {
+		    String regex = "[" + Character.toLowerCase(letter) + Character.toUpperCase(letter) + "]";
+            String inputWithoutLetter = input.replaceAll(regex, "");
+            Polymer polymer = new Polymer(inputWithoutLetter);
+            polymer.reactAll();
+            if (polymer.units.size() < bestLength) {
+                bestLength = polymer.units.size();
+            }
+        }
+        return Integer.toString(bestLength);
     };
 
     public static void main(String[] args) {
