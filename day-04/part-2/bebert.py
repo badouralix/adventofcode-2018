@@ -29,6 +29,4 @@ class BebertSubmission(SubmissionPy):
                     max_guard = guard
                     max_minute = m
 
-        print(max_guard)
-        print(max_minute)
         return max_guard * max_minute
