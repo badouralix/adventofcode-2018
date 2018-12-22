@@ -43,30 +43,32 @@ class Solution {
     private static String solve(String input) {
 		/**
 		 * We want to find out from logs when the guards will most probably be asleep
-		 * To do this, we need to find out which guard sleeps the most and when he sleeps
+		 * To do this, we will proceed the other way : find out which minute has a
+		 * guard that is often asleep, and then which guard it is
 		 * @input a list of String that look like "YYYY-MM-DD HH:MM something happened"
 		 * @return the id of the guard chosen time the minute when they will be asleep
 		 */
 		
 		Map<Integer, Guard> guards = parseInput(input);
 		
-		// find out which guard has slept the most
-		Guard guardMostAsleep = null;
-		int minutesSlept = 0;
+		// find out which minute is the best among all the guards
+		Guard guardWithBestMinute = null;
+		int bestMinute = 0;
+        int bestFreq = 0;
 		for (int guardID: guards.keySet()) {
 			Guard guard = guards.get(guardID);
-            int timeAsleep = guard.getTotalNapDuration();
-			if (timeAsleep > minutesSlept) {
-				guardMostAsleep = guard;
-				minutesSlept = timeAsleep;
+            int[] minuteAndFreq = guard.getMinuteMostAsleep();
+            int minute = minuteAndFreq[0];
+            int freq = minuteAndFreq[1];
+			if (freq > bestFreq) {
+				guardWithBestMinute = guard;
+				bestMinute = minute;
+                bestFreq = freq;
 			}
 		}
 		
-		// find out when this guard was the most asleep
-		int bestMinute = guardMostAsleep.getMinuteMostAsleep();
-		
 		// return ID of guard most asleep * minute when most asleep
-		return Integer.toString(guardMostAsleep.id * bestMinute);
+		return Integer.toString(guardWithBestMinute.id * bestMinute);
     };
 
     public static void main(String[] args) {
@@ -90,15 +92,7 @@ class Guard {
 		naps.add(mn);
 	}
 	
-	public int getTotalNapDuration() {
-		int totalNapDuration = 0;
-		for (int i = 0; i < naps.size() - 1; i += 2) {
-			totalNapDuration += naps.get(i+1) - naps.get(i);
-		}
-		return totalNapDuration;
-	}
-	
-	public int getMinuteMostAsleep() {
+	public int[] getMinuteMostAsleep() {
 		int[] minutes = new int[60];
 		int start, end;
 		for (int i = 0; i < naps.size(); i += 2) {
@@ -115,6 +109,7 @@ class Guard {
 				timeAsleepThisMinute = minutes[i];
 			}
 		}
-		return minuteMostAsleep;
+        int[] minuteAndFreq = {minuteMostAsleep, timeAsleepThisMinute};
+		return minuteAndFreq;
 	}
 }
