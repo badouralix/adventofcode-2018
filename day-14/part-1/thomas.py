@@ -13,6 +13,6 @@ class ThomasSubmission(SubmissionPy):
                 (elves[0] + 1 + recipes[elves[0]]) % len(recipes),
                 (elves[1] + 1 + recipes[elves[1]]) % len(recipes),
             ]
-            if len(recipes) <= 26:
-                print(recipes, elves)
+            # if len(recipes) <= 26:
+            #     print(recipes, elves)
         return "".join(str(n) for n in recipes[nb_recipes : nb_recipes + 10])
