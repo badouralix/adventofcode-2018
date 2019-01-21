@@ -1,6 +1,6 @@
 import re
 import numpy as np
-from runners.python import SubmissionPy
+from tool.runners.python import SubmissionPy
 
 class SilvestreSubmission(SubmissionPy):
 

@@ -1,6 +1,6 @@
 import string
 from collections import deque
-from runners.python import SubmissionPy
+from tool.runners.python import SubmissionPy
 
 
 class SilvestreSubmission(SubmissionPy):

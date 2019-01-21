@@ -1,4 +1,4 @@
-# Advent of code 2018 submissions
+# Advent of code 2018 solutions
 
 ⁣    🌟  
     🎄  
@@ -6,9 +6,9 @@
   🎄🎄🎄  
  🎄🎄🎄🎄  
 🎄🎄🎄🎄🎄  
-  🎁🎁🎁  
+  🎁🎁🎁
 
-These are proposed submissions for the [Advent of Code 2018](http://adventofcode.com/2018).
+These are proposed solutions for the [Advent of Code 2018](http://adventofcode.com/2018).
 
 The solutions are automatically tested with travis.
 
@@ -16,52 +16,112 @@ The solutions are automatically tested with travis.
 
 ## Usage
 
-To run submissions use `run.py` script
+use `./aoc` script
 
 ```text
-usage: run.py [-h] [--last] [-d DAY] [-p PART] [-a AUTHORS] [-i IGNORE]
-              [-l LANGUAGES] [-f] [-r] [-s]
+usage: aoc <command> [<args>]
 
-Run contest submissions
-
-optional arguments:
-  -h, --help            show this help message and exit
-  --last                Run submissions from last day
-  -d DAY, --day DAY     Run submissions for specific day
-  -p PART, --part PART  Run submissions for specific day part
-  -a AUTHORS, --authors AUTHORS
-                        Run submissions from specific authors, ex: user1,user2
-  -i IGNORE, --ignore IGNORE
-                        Ignore submissions from specific authors
-  -l LANGUAGES, --languages LANGUAGES
-                        Run submissions written in specific languages, ex:
-                        js,py, supported: c cpp go js py rb rs sh
-  -f, --force           Force running submissions even if tool is missing
-  -r, --restricted      Restrict each author to their input only
-  -s, --silent          Disable debug mode
+aoc commands are:
+   run      Runs submissions
+   create   Creates a new submission
+   config   Configures user's parameters
 ```
+
+### Examples
+
+#### Run last problem
+
+```shell
+./aoc run
+```
+
+```shell
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Running submissions for day 04:
+
+* part 2:
+---------------------------------------------------
+Avg over all inputs
+---------------------------------------------------
+----------  ----------  -----------  ---
+silvestre      78452        1.99 ms  py
+degemer        43695        2.39 ms  py
+jules          23037        2.49 ms  py
+david          36371        2.94 ms  py
+thomas          9763        2.97 ms  py
+ayoub         136461        5.85 ms  cpp
+evqna          49137        6.65 ms  cpp
+badouralix     51232        7.26 ms  go
+tpxp           41668      133.63 ms  rb
+----------  ----------  -----------  ---
+```
+
+#### Run specific problems from specific users
+
+```shell
+./aoc run -d 1 -d 2 -p 1 -a ayoub -a david
+```
+
+```shell
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Running submissions for day 01:
+
+* part 1:
+---------------------------------------------------
+Avg over all inputs
+---------------------------------------------------
+-----  -------  -----------  ---
+david    543        0.46 ms  py
+ayoub    445        4.94 ms  cpp
+-----  -------  -----------  ---
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Running submissions for day 02:
+
+* part 1:
+---------------------------------------------------
+Avg over all inputs
+---------------------------------------------------
+-----  --------  -----------  ---
+david    5658        1.22 ms  py
+ayoub    6448        4.84 ms  cpp
+-----  --------  -----------  ---
+```
+
+You can use `-r` to run each submission on it's own input, or `-e` to print non-aggregated results.  
+see `./aoc run -h` for full arguments description.
 
 ## Contribute
 
-For now we support `c`, `c++`, `javascript`, `go`, `python 3`, `ruby`, `rust (stable)` and shell scripts.
+For now we support `c`, `c++`, `java`, `javascript`, `go`, `python 3` (+ `cython`), `ruby`, `rust (stable)` and `bash` scripts.
 
-You can use `create.py` tool to create a new empty submission:
+You can use `./aoc create` tool to create a new empty submission:
 
 ```text
-usage: create.py [-h] [-p {1,2}] [-l {c,cpp,go,js,py,rb,rs,sh}] author day
+usage: aoc create [-h] [-a AUTHOR] [-d DAY] [-p PART]
+                  [-l {c,cpp,go,java,js,py,pyx,rb,rs,sh}]
 
-Creates new empty submission
-
-positional arguments:
-  author                Name of author (github login)
-  day                   Day of problem (between 1 and 25)
+Create a new submission
 
 optional arguments:
-  -h, --help            show this help message and exit
-  -p {1,2}, --part {1,2}
-                        Create submission for one day part only
-  -l {c,cpp,go,js,py,rb,rs,sh}, --language {c,cpp,go,js,py,rb,rs,sh}
-                        Use specified language
+  -a AUTHOR, --author AUTHOR
+                        submission author
+  -d DAY, --day DAY     problem day
+  -p PART, --part PART  problem part
+  -l {c,cpp,go,java,js,py,pyx,rb,rs,sh}, --language {c,cpp,go,java,js,py,pyx,rb,rs,sh}
+                        submission language
+```
+
+you can also use `./aoc config` to setup your local profile
+
+```text
+usage: aoc config [-h] username {c,cpp,go,java,js,py,pyx,rb,rs,sh}
+
+Configures user parameters
+
+positional arguments:
+  username              prefered username
+  {c,cpp,go,java,js,py,pyx,rb,rs,sh}
+                        prefered programming language
 ```
 
 ### Using python
@@ -69,23 +129,26 @@ optional arguments:
 If you don't use `create.py` tool you should follow this convention:
 
 ```bash
-day-[number]/part-[number]/[your_login].py    # your submission code
-day-[number]/inputs/[your_login].txt          # your input file
+day-[number]/part-[number]/[username].py    # your submission code
+day-[number]/input/[username].txt           # your input file
 ```
 
 Your submission code should inherit from the `SubmissionPy` class from `runners.python` module:
 
 ```python
-from runners.python import SubmissionPy
+from tool.runners.python import SubmissionPy
 
 class MyAwesomeSubmission(SubmissionPy):
 
     def run(self, s):
         # :param s: input in string format
         # :return: solution flag
+        pass
 ```
 
 You can add other functions & modules if you need to. Any external dependency should be added to `requirements.txt`.
+
+Once you tested your solution you can submit it by making a PR.
 
 ## History
 

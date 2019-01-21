@@ -1,4 +1,4 @@
-from runners.python import SubmissionPy
+from tool.runners.python import SubmissionPy
 import numpy as np
 from collections import defaultdict
 from functools import partial
