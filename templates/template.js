@@ -1,9 +1,0 @@
-/**
- * @param {string} s puzzle input in string format
- * @returns {string} solution flag
- */
-const run = s => {
-  // Your code goes here
-};
-
-console.log(run(process.argv[2]));
