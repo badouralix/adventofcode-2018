@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/badouralix/advent-of-code-2018#readme",
   "dependencies": {
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.13"
   }
 }
