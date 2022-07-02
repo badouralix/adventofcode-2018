@@ -7,11 +7,11 @@ export PATH=$PATH:~/.cargo/bin:$GOROOT/bin
 export PYENV_VERSION=3.8
 
 run_from_diff() {
-    echo "$1" | grep "day-" | cut -d "/" -f1 | cut -d "-" -f2 | sort | uniq | xargs -I{} ./aoc run -fntd {}
+    echo "$1" | grep "day-" | cut -d "/" -f1 | cut -d "-" -f2 | sort | uniq | xargs -I{} ./aoc run -fd {}
 }
 
 run_from_inputs() {
-    for day in $1; do echo "$day"; done | sort | uniq | xargs -I{} ./aoc run -fntd {}
+    for day in $1; do echo "$day"; done | sort | uniq | xargs -I{} ./aoc run -fd {}
 }
 
 # Note: we cannot use "git branch --show-current" as GitHub rewrites the history in actions
