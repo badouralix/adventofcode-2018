@@ -19,7 +19,11 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
+
+      # Fetch origin/master ref so that we can run diffs from PR head
+      - name: Fix remote refs
+        run: git fetch --no-tags --depth=1 origin master
 
       - name: Build
         run: ./build.sh

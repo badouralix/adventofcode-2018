@@ -17,7 +17,7 @@ run_from_inputs() {
 # Note: we cannot use "git branch --show-current" as GitHub rewrites the history in actions
 if [ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ];
 then
-    run_from_inputs "$INPUTS_DAYS"
+    run_from_inputs "$INPUT_DAYS"
 elif [ "$GITHUB_EVENT_NAME" == "pull_request" ];
 then
     # Check the diff with master
