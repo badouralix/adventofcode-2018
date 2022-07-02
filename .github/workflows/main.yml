@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+    inputs:
+      days:
+        description: Run specific days (space delimiter)
+        required: true
+
+env:
+  INPUT_DAYS: ${{ github.event.inputs.days }}
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Build
+        run: ./build.sh
