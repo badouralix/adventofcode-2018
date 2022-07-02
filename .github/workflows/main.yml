@@ -27,16 +27,12 @@ jobs:
       - name: Fix remote refs
         run: git fetch --no-tags --depth=2 origin master
       
-      # Install python packages if not cached
-      - name: cache-python
-        uses: actions/cache@v1
-        id: cache-python
+      - uses: actions/setup-python@v4
         with:
-          path: ~/.local/lib/python3.8/site-packages
-          key: ${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+          python-version: '3.8'
+          cache: pip
       - name: deps-python
-        if: steps.cache-python.outputs.cache-hit != 'true'
-        run: sudo apt-get install python3-setuptools && python3 -m pip install --user wheel && python3 -m pip install --user -r requirements.txt
+        run: pip install --user -r requirements.txt
 
       # Install npm packages if not cached
       - name: cache-npm
