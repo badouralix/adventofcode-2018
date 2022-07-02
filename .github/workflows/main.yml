@@ -26,6 +26,28 @@ jobs:
       # Fetch origin/master ref so that we can run diffs from PR head
       - name: Fix remote refs
         run: git fetch --no-tags --depth=2 origin master
+      
+      # Install python packages if not cached
+      - name: cache-python
+        uses: actions/cache@v1
+        id: cache-python
+        with:
+          path: ~/.local/lib/python3.8/site-packages
+          key: ${{ runner.os }}-${{ hashFiles('requirements.txt') }}
+      - name: deps-python
+        if: steps.cache-python.outputs.cache-hit != 'true'
+        run: sudo apt-get install python3-setuptools && python3 -m pip install --user wheel && python3 -m pip install --user -r requirements.txt
+
+      # Install npm packages if not cached
+      - name: cache-npm
+        uses: actions/cache@v1
+        id: cache-npm
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - name: deps-npm
+        if: steps.cache-npm.outputs.cache-hit != 'true'
+        run: npm install
 
       - name: Build
         run: ./build.sh
