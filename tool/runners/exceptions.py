@@ -5,7 +5,3 @@ class CompilationError(Exception):
 
 class RuntimeError(Exception):
     pass
-
-
-class DependenciesError(Exception):
-    pass

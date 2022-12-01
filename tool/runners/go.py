@@ -5,20 +5,13 @@ from subprocess import check_output, Popen, PIPE
 import tempfile
 
 from tool.runners.wrapper import SubmissionWrapper
-from tool.runners.exceptions import CompilationError, RuntimeError, DependenciesError
+from tool.runners.exceptions import CompilationError, RuntimeError
 
 
 class SubmissionGo(SubmissionWrapper):
 
     def __init__(self, file):
         SubmissionWrapper.__init__(self)
-        relpath = os.path.join(".", file)
-        abspath = os.path.realpath(file)
-        gopath = os.path.realpath(check_output(["go", "env", "GOPATH"]).decode().strip())
-        if not abspath.startswith(gopath):
-            dep_output = check_output(["go", "get", "-d", relpath]).decode()
-            if dep_output:
-                raise DependenciesError(dep_output)
         tmp = tempfile.NamedTemporaryFile(prefix="aoc")
         tmp.close()
         compile_output = check_output(["go", "build", "-o", tmp.name, file]).decode()

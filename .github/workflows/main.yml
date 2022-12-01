@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+    inputs:
+      days:
+        description: Run specific days (space delimiter)
+        required: true
+
+env:
+  INPUT_DAYS: ${{ github.event.inputs.days }}
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      # Fetch origin/master ref so that we can run diffs from PR head
+      - name: Fix remote refs
+        run: git fetch --no-tags --depth=2 origin master
+      
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.8'
+          cache: pip
+      - name: deps-python
+        run: pip install --user -r requirements.txt
+
+      # Install npm packages if not cached
+      - name: cache-npm
+        uses: actions/cache@v1
+        id: cache-npm
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - name: deps-npm
+        if: steps.cache-npm.outputs.cache-hit != 'true'
+        run: npm install
+
+      - name: Build
+        run: ./build.sh

@@ -2,16 +2,27 @@
 
 set -ev
 
-# Install Rust if not present via cache
-if [ ! -d $HOME/.cargo/bin ] || [ ! -d $HOME/.rustup/ ]
+# source $HOME/.cargo/env
+export PATH=$PATH:~/.cargo/bin:$GOROOT/bin
+export PYENV_VERSION=3.8
+
+run_from_diff() {
+    echo "$1" | grep "day-" | cut -d "/" -f1 | cut -d "-" -f2 | sort | uniq | xargs -I{} ./aoc run -fd {}
+}
+
+run_from_inputs() {
+    for day in $1; do echo "$day"; done | sort | uniq | xargs -I{} ./aoc run -fd {}
+}
+
+# Note: we cannot use "git branch --show-current" as GitHub rewrites the history in actions
+if [ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ];
 then
-    curl https://sh.rustup.rs -sSf -o rustup.sh
-    sh rustup.sh -y
+    run_from_inputs "$INPUT_DAYS"
+elif [ "$GITHUB_EVENT_NAME" == "pull_request" ];
+then
+    # Check the diff with master
+    run_from_diff "$(git --no-pager diff --name-only origin/master --)"
+else
+    # Check the diff of the last commit
+    run_from_diff "$(git --no-pager diff --name-only HEAD HEAD^ --)"
 fi
-export PATH=$PATH:~/.cargo/bin
-
-export PYENV_VERSION=3.7
-
-npm install
-pip install --user -r requirements.txt
-git --no-pager diff --name-only HEAD^ | grep "day-" | cut -d "/" -f1 | cut -d "-" -f2 | sort | uniq | xargs -I{} ./aoc run -fd {}
